@@ -43,6 +43,7 @@ spctl --status
 
 - `Ctrl A` - Jump to the *start* of the line
 - `Ctrl E` - Jump to the *end* of the line
+- ^ this also accepts suggested text
 - `Ctrl F` - Jump *forward* one character
 - `Ctrl B` - Jump *backward* one character
 - `Alt F` - Jump *forward* one word

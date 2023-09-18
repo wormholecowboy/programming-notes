@@ -47,3 +47,8 @@ Principle 3: Program to interfaces, not implementations
 - Use guard clauses instead of nested logic
 
 ..
+
+String & Number Manipulation
+• Use "% 10" to grab the last digit of a number
+• Use Int division to chop off the last digit of a number
+
