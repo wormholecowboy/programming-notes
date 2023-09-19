@@ -147,42 +147,15 @@ sh [install.sh](http://install.sh/)
 # CHANGE PROMPT
 
 # this only works for zsh?
-
 PROMPT='%4~ $' # Shows 4 levels of subfolders and a $
 PROMPT='%B%4~ $ %b' # Bold
 
 # to change color, wrap in %F{} $f tags
-
 PROMPT='%B%F{blue}%4~ $ %f%b'. #color, takes 256 xterm color codes
 
-# Must save to .zshrc !!!
+# pull name and computer out of prompt: 
+`prompt_context() {}` (at the end of the .zshrc)
 
-# CHANGE TERMINAL
-
-install oh my zsh
-install powerline fonts: [https://fmacedoo.medium.com/oh-my-zsh-with-powerline-fonts-pretty-simple-as-you-deserve-fbe7f6d23723](https://fmacedoo.medium.com/oh-my-zsh-with-powerline-fonts-pretty-simple-as-you-deserve-fbe7f6d23723)
-change terminal settings for color preset: dark solarize
-change font: whatever powerline font
-
-change theme in .zshrc to “agnoster”
-change vscode settings:
-
-```
-"terminal.integrated.fontFamily": "Source Code Pro for Powerline",
-"terminal.integrated.shell.osx": "/bin/zsh"
-```
-
-edit .zshrc with correct prompt
-
-pull name and computer out of prompt: `prompt_context() {}` (at the end of the .zshrc)
-
-further customization: [https://gist.github.com/DukeNgn/9312a65e1535b3b1bffd9fed2c892079](https://gist.github.com/DukeNgn/9312a65e1535b3b1bffd9fed2c892079)
-
--CHEATSHEETS
-
-[bash commands.pdf](Zsh%20CLI%207d19e7179cbb4322ad2e96701b09f327/bash_commands.pdf)
-
-[iterm 2.pdf](Zsh%20CLI%207d19e7179cbb4322ad2e96701b09f327/iterm_2.pdf)
 
 # STOW
 

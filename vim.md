@@ -51,7 +51,7 @@ last inserted text - “.
 
 -SURROUND
 
-```
+
 ( = b
 { = B
 [ = r
@@ -74,17 +74,10 @@ yss - surround whole line, ignoring leading whitespace
 ysib( - surround body with parenth
 ysiw<tag> - surround word with <tag>
 
+**visual mode**
 S is for when you are in visual mode (to avoid triggering s)
-
 use capital W to add space around the word
-
-Finally, let's try out visual mode. Press a capital V (for linewise visual mode) followed by `S<p class="important">`
-
-Old text                  Command     New text ~
-      Hello w*orld!         yssB            {Hello world!}
-
-There is also *yS* and *ySS* which indent the surrounded text and place it
-on a line of its own.
+yS"  -  surround highlighted with "
 
 In visual mode, a simple "S" with an argument wraps the selection.  This is
 referred to as the *vS* mapping, although ordinarily there will be
@@ -92,22 +85,19 @@ additional keystrokes between the v and S.  In linewise visual mode, the
 surroundings are placed on separate lines and indented.  In blockwise visual
 mode, each line is surrounded.
 
+There is also *yS* and *ySS* which indent the surrounded text and place it
+on a line of its own.
+
 Eight punctuation marks, (, ), {, }, [, ], <, and >, represent themselves
 and their counterparts.  If the opening mark is used, contained whitespace is
 also trimmed.  The targets b, B, r, and a are aliases for ), }, ], and >
 (the first two mirror Vim; the second two are completely arbitrary and
 subject to change).
-```
 
-[https://github.com/tpope/vim-surround](https://github.com/tpope/vim-surround)
 
-[https://github.com/tpope/vim-surround](https://github.com/tpope/vim-surround)
 
-[vim-surround/surround.txt at master · tpope/vim-surround](https://github.com/tpope/vim-surround/blob/master/doc/surround.txt)
 
--LUA
-
-```lua
+# LUA
 
 -- Passing VimL: For multiple lines, wrap string in double brackets:
 
@@ -117,37 +107,15 @@ set notimeout
 set encoding=utf-8
 ]])
 
+## HOME DIR
 --home directory problems - I had issue using ~ as a reference to home directory for
 -- some backup files etc. so instead I
  --set HOME variable that I used by writing HOME = os.getenv("HOME")
 --string concatenation uses .. operator, so to refer to my backup dir I wrote
  --vim.opt.backupdir = HOME .. "/.vim/backup"
 
---ESCAPE KEYE: double backslash - if you want to pass a special character \t to Vim, you need to write it as "\\t" in Lua
+--ESCAPE KEY: double backslash - if you want to pass a special character \t to Vim, you need to write it as "\\t" in Lua
 
---ALT key mapping method
-function map(mode, shortcut, command)
-  vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
-end
 
-function nmap(shortcut, command)
-  map('n', shortcut, command)
-end
 
-function imap(shortcut, command)
-  map('i', shortcut, command)
-end
 
-```
-
----
-
--CHEATSHEETS
-
-[A Great Vim Cheat Sheet.pdf](VIM%20&%20NVIM%203d144f0736174627a6c05c4f1eb33d14/A_Great_Vim_Cheat_Sheet.pdf)
-
-[Vim Cheat Sheet.pdf](VIM%20&%20NVIM%203d144f0736174627a6c05c4f1eb33d14/Vim_Cheat_Sheet.pdf)
-
-[Boost Your Coding Fu With VSCode and Vim - Cheatsheet \_ Barbarian Meets Coding.pdf](VIM%20&%20NVIM%203d144f0736174627a6c05c4f1eb33d14/Boost_Your_Coding_Fu_With_VSCode_and_Vim_-_Cheatsheet___Barbarian_Meets_Coding.pdf)
-
-[Vim Cheat Sheet.pdf](VIM%20&%20NVIM%203d144f0736174627a6c05c4f1eb33d14/Vim_Cheat_Sheet%201.pdf)
