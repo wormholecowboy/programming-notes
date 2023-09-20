@@ -13,11 +13,12 @@ r  source tmux config
 
 ## **Sessions**
 
-switch sess: leader ( )
-s  list sessions
-$  name session
-re-attach (enter tmux sess): tmux a -t <name>
-:new<CR>  new session
+leader ( )   switch seesions  
+s   list sessions
+$   name session
+tmux a -t <name>   re-attach 
+  tmux a   (enter last seesion)
+:new   new session
 
 
 ## **Windows (tabs)**
