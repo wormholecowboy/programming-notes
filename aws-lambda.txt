@@ -1,0 +1,5 @@
+MISC
+
+- Layers: allow you to create dependencies b/w the functions
+- Applications: tie in with other services for ease of config
+- 
