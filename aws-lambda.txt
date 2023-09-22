@@ -2,4 +2,29 @@ MISC
 
 - Layers: allow you to create dependencies b/w the functions
 - Applications: tie in with other services for ease of config
-- 
+- Use Cloudwatch to view logs -- logs >> log groups 
+    - use insights to view many logs at once, check pre-definied queries on right
+- EC2's stay spun up for 30-60 minutes until they are not needed
+- Lambda charges for duration of runtime for FNs
+    - if calling other lambdas, you may want to use async, otherwise first lambda will wait for response and double bill you
+
+
+FUNCTIONS 
+- Runtime settings must have correct filename:functionname (ex. lambda_function:lambda_handler)
+    -handler is the app entry point
+    -handler(event, context)  // context tells you about runtime env.
+- Async does not tell client about failure, need Dead Letter Queue for that
+
+DURATION & TIMEOUTS
+- longer timeouts aren't always better
+- async gets terminated if timeout is reached
+- default timeout is 3s
+
+
+
+MEMORY
+- be careful: incr memory incr other resources as well (EC2 instance)
+    - but can reduce the impact of cold start (node and python have best perf here)
+    - not linear incr
+
+

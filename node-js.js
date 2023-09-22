@@ -36,7 +36,6 @@ ee.emit('customEventName');
 // FILE SYSTEM I/O
 // has sync and async versions
 readFileSync(path, encoding)   // use utf-8
-writeFileSync(path, thingToWrite)
 readFile(path, encoding, callback) // async
 
 // use fs to read and write
@@ -125,10 +124,10 @@ JSON.parse(data)  // turn json into js object or array
 // 404
 app.use((req, res) => {
     res.status(404).send('Sorry bucko!')
-});
+})
 
 
 
-
+})})
 
 
