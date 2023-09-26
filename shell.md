@@ -95,9 +95,11 @@ find ~ \( -iname '*jpeg' -o -iname '*jpg' \) using the OR flag -o
 
 touch file-{001..100}.txt
 
-# ESCAPE CHAR
+# ADD TO PATH
 
-\
+for users, add to rc file
+for system-wide, edit /etc/profile
+export PATH="$PATH:/opt/example/bin"
 
 # SYMLINK
 
@@ -132,12 +134,17 @@ tar xzvf <file.tar.gz>
 
 -v : Displays Verbose Information
 -A : Concatenates the archive files
--z : zip, tells tar command that creates tar file using gzip
--j : filter archive tar file using tbzip
+-z : tells tar to use gzip
+    For .tar.xz archives use J instead of z, and for .tar.bz2 use j.
+    -j : use tbzip  *.tar.bz2
+    -J : use for *.tar.xz
 -W : Verify a archive file
 -r : update or add file or directory in already existed .tar file
+-C : change install dir
 
-trigger fzf anywhere: \*\*<tab>
+example
+tar -C /opt -xzf example.tar.gz 
+unzip file.zip -d destination_folder
 
 # CHECK SCRIPTS BEFORE YOU DOWNLOAD THEM
 
