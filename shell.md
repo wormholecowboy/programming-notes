@@ -2,27 +2,13 @@
 
 ## cd
 
-d
-1,2,3,4
-wc
 uniq
-cat
-grep
-which
-mv, cp
-history
-head
-tail
-find
-echo
 cal
 date
-man
-sort
+hash    list all commands
 !! Repeat last command
 | column 
 
-ls -R recursive ls
 
 remove dir: rd
 create and goto dir: mkcd something/somethingelse/somethingdeeper
