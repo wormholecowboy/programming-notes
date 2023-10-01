@@ -1,0 +1,45 @@
+MISC
+
+
+
+PACMAN
+/etc/pacman.d/mirrorlist
+more packages can be added to etc/pacman.conf
+Color
+ILoveCandy
+
+sudo pacman -Sy   update the pacman repots
+            -Syu  update your packages too
+            -Sc   remove old package versions
+            -Qs   list all your packages
+            -Qe   list all packs installed by you
+            -Ql   list all files from packages
+            -Qn   all installed from main repo
+            -Qm   all from AUR
+            -Qdt  unneeded dependencies
+            -Fy (package or path)   search for packages that use that file
+            -R    remove
+            -Rns   remove dependencies too(s), and config sys files(n)
+            -Ss   search for packages
+
+
+etc/makepkg.conf   increase MAKEFLAGS to the total num of your threads for better perf
+
+yay (packagename)   search the AUR
+yay -P --stats   get stats on your packages
+yay -Qe   list every package you ever installed (not incl. dependencies)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
