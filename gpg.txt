@@ -1,0 +1,4 @@
+gpg --import <keyfile>
+gpg --list-keys
+gpg --verify <filename>.sig <filename>.tar
+gpg --delete-key
