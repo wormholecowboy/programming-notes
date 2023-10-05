@@ -9,6 +9,9 @@ hash    list all commands
 !! Repeat last command
 | column 
 
+ps -ef   list all processes
+lsof   list open files and ports
+   -i:22   specify port 22
 
 remove dir: rd
 create and goto dir: mkcd something/somethingelse/somethingdeeper
@@ -18,6 +21,13 @@ unique lines: uniq (must be adjacent doubles)
 history: then use !<line#>
 
 > is an alternative to touch
+
+
+### Disk space
+
+d -h   human readable
+d -h --summarize   (max depth 0)
+d -d 2   (max depth 2)
 
 ### Security
 

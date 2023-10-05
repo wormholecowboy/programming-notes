@@ -1,4 +1,18 @@
+# Commit 
+git rm --cached   keep file but rm from staging
+git rm -f   remove file from hdd too
 
+
+
+# Fugitive
+[]c     scroll through commits
+Gvdiff  see a diff for current file    
+Git blame
+czz     stash
+czA     apply top stash
+cza     apply top stash, preserve index
+czP     pop
+dv      vert diff
 
 # Nav
 git switch -c <newBranchName> #create new and switch
@@ -94,6 +108,8 @@ git ls-remote
 ## see remote tracking details, url, etc.
 git remote show <remotename>
 
+## change from https to ssh 
+git remote set-url origin git@HOST:USERNAME/REPOSITORY.git
 
 
 # CONFLICTS
@@ -141,7 +157,7 @@ git commit --amend --no-edit
 
 
 # PULLING: IGNORE LOCAL
-If you mean you want the pull to overwrite local changes, doing the merge as if the working tree were clean, well, clean the working tree:
+## overwite local changes
 git reset --hard
 git pull
 
@@ -150,25 +166,13 @@ If there are untracked local files you could use `git clean` to remove them.
 - `df` to remove untracked files and directories
 - `xdf` to remove untracked or ignored files or directories
 
-If on the other hand you want to keep the local modifications somehow, you'd use stash to hide them away before pulling, then reapply them afterwards:
-git stash
-git pull
-git stash pop
-
-CHEATSHEETS
-
-![git 2.png](Git%207d1f95ad86774aa2addac37581bd6bb2/git_2.png)
-[git cheatsheet 2.pdf](Git%207d1f95ad86774aa2addac37581bd6bb2/git_cheatsheet_2.pdf)
-[git cheatsheet.pdf](Git%207d1f95ad86774aa2addac37581bd6bb2/git_cheatsheet.pdf)
-![Git-Cheat-Sheet.jpg](Git%207d1f95ad86774aa2addac37581bd6bb2/Git-Cheat-Sheet.jpg)
-[git.pdf](Git%207d1f95ad86774aa2addac37581bd6bb2/git.pdf)
 
 
 # CONFIG
 
 # System: all users
 # Global: one user, all repos
-# Local: one repo
+# Local: one repo (default)
 
 git config --global user.name "username"
 git config --global user.email "email"
@@ -191,8 +195,7 @@ git stash save <name> # name your stash to get it later
 git stash list # see what's in your stash, get index
 git stash apply <indexNumber> # applies your stash, leave stash mem alone
 git stash pop <indexNumber> # applies your stash, deletes that stash from mem
-# plain git stash and git stash pop is good for one-offs, use naming for muliples stashes
-# if using github codespace, you're stashes are in the cloud
+
 
 # TAGS
 git tag # see all
@@ -212,6 +215,7 @@ git restore -S <file>
 git restore <file> # WARN discards local changes revert to last commit/stage
 git reset HEAD <file> #alt remove staging
 git checkout -- <file> # revert file back to staging version (WARNING: will delete your working dir version)
+
 
 # CLEAN
 git clean
