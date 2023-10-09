@@ -181,3 +181,23 @@ with loading, usually JSON docs -> dicts and JSON arrarys -> lists
 json.load() converts a JSON file to a dict (takes a filepath)
 json.loads() converts a JSON string to a dict (takes a string)
    note: you must open() the file first. both take file object.
+
+
+# IMPORTS / MODULES
+## absolute
+Let’s assume the following:
+
+package1/module2.py contains a function, function1.
+package2/__init__.py contains a class, class1.
+package2/subpackage1/module5.py contains a function, function2.
+The following are practical examples of absolute imports:
+
+from package1 import module1
+from package1.module2 import function1
+from package2 import class1
+from package2.subpackage1.module5 import function2
+
+## relative
+from .some_module import some_class
+from ..some_package import some_function
+from . import some_class
