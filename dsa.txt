@@ -1,0 +1,64 @@
+LINEAR SEARCH
+simple for loop that searches the indexes in 1.
+
+MISC
+# Is the data ordered? If so, you have advantages: (binary search)
+constraints make things able to be fast
+
+BINARY SERACH
+must have sorted data
+make sure to make the lo inclusive and the hi exclusive
+uses a while loop to crunch down on hi and low
+Takes in a needle and haystack
+set hi and lo and midpoint
+mid gets recalculated on every pass
+don't forget to use floor on the init mid calc
+don't forget to use mid as an index of haystack
+
+BUBBLE SORT
+goes throuh arr 2 index at a time and compares them.
+On each pass, the highest number gets put at the end, so you can decr the end of the array index since
+you don't need to look at it anymore
+subtract i from inner loop conditional
+also, subtract 1 from inner loop conditional
+Uses 2 loops, one to go through array, the other to look and do the swapping.
+
+LINKED LIST
+aka node-based ds
+ Order of ops is important, can't set C.next to undefined, otherwise you could never access D again.
+ Anthing dealing with the ends is constant time. Dealing with the middle can be costly if traversal is large
+ Recommend avoiding traversal
+
+
+QUEUE
+a specific implemenation of a a linkned-list FIFO
+create node type. fn has length, head, tail, constructor, enqueue, deque, peek
+don't forget to keep track of the length
+enque:
+     update length
+     create node
+     check for null and set both tail and head to new node.
+ else: store tail and update pointer and old tail next.
+dequeue:
+     check for null
+     update length
+     store head and move pointer
+     if len=0, update tail too
+     return val
+peek:
+     check for null and return
+gotchas: updated len, temp store head or tail, empty queue
+
+
+STACK
+opp of queue. Pointers point backwards, head is at the end
+
+
+
+
+
+
+
+
+
+

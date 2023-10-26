@@ -86,7 +86,7 @@ git branch -d <name>
 ## -D for unmerged branches
 
 ## delete on remote too
-git push origin:<branchName> 
+git push origin --delete <remotename>
 
 # merge branch into the one you're in
 git merge <name>
@@ -97,6 +97,12 @@ git mergetool # for conflicts OR use VScode
 ## Add a local branch from a remote branch
 git branch <local> <origin>/<branchname>
 git merge <origin>/<branchname> ## merge in the remote
+## OR
+git checkout -b <newlocalbranch> origin/remotebranch
+## OR 
+git checkout --track origin/remotebranch
+## OR
+git checkout <remotebranch>
 
 ## Add remote branch from a local branch
 git checkout <localbranch>
@@ -122,8 +128,14 @@ git branch -u <remote/branch> <localbranch>
 ## Clone a specfic branch
 git clone -b <branch> <remote_repo>
 
+## Or merge in a new remote branch by creating the local
+git checkout -b serverfix origin/serverfix
+
 ## Rename a remote
 git remote rename old new
+
+## delete remote 
+git push origin --delete <remotename>
 
 ## see what remote branch local is tracking
 git remote -v

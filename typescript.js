@@ -5,7 +5,7 @@ Updated: October 1, 2022 11:25 AM
 
 MISC
 
-- Don’t annotate types where it would be inferred anyway
+/* - Don’t annotate types where it would be inferred anyway
 - Targets ES3 by default
 - to disable errors: `tsc --noEmitOnError hello.ts`
 - `npm install -g typescript`  `tsc -v`
@@ -16,17 +16,16 @@ MISC
     - `type point = number | string`
     - can’t do this with interfaces
     - interfaces are more for objects
-    - Prefer interfaces to types
+    - Prefer interfaces to types */
 
--BASICS
+// -BASICS
 
-```tsx
 
 // TYPES
 
 // primitives
 let a: number = 5
-let b: string = 'Brian
+let b: string = 'Brian'
 let c: boolean = true
 let d: any = 10
 let e: number[] = [1,2,3] // array of numbers
@@ -119,11 +118,11 @@ class Employee extends Person {
 
 function whatever( { title }: { title?: string}) 
 // ? makes it optional
-```
+
 
 -GENERICS
 
-```tsx
+
 // Allows you to define the type later on, creates a placeholder during the definition
 
 // ex. You can create a generic function for making arrays and define the type at runtime
@@ -134,14 +133,12 @@ function getArray<T>(items: T[]): T[] {
 // type defined inside function call
 const numArray = getArray<number>([1,2,3,4])
 const strArray = getArray<string>(['poop', 'butts']) 
-```
 
--REACT
 
-- has a type called ‘FC’ for function component
-- 
+// -REACT
+// - has a type called ‘FC’ for function component
 
-```tsx
+
 // TYPING CHILDREN
 // TYPING A PARAM AS AN OBJECT
 
@@ -156,7 +153,7 @@ interface CoolProps {
 const Cool:FC<CoolProps> () => {  // FC is funcion component type
 	//whatever
 }
-```
+
 
 -INTERFACES
 
@@ -164,6 +161,6 @@ const Cool:FC<CoolProps> () => {  // FC is funcion component type
 - Can pass the interface to a type like this:
 - 
 
-```tsx
 
-```
+
+
