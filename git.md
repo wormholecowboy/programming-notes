@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 HEAD refers to a specific branch, not a commit, except when in detached state.
 
 # HANDY 
+=======
+
+Don’t rebase commits outside your repo that ppl may have worked on# HANDY 
+>>>>>>> df9f921 (notes)
  ## keep file but rm from staging
 git rm --cached  
  ##  remove file from hdd too
@@ -173,9 +178,17 @@ git remote set-url origin git@HOST:USERNAME/REPOSITORY.git
 
 # CONFLICTS
 
+<<<<<<< HEAD
 ## merge branch into the one you're in
 git merge <name>
 git merge --no-ff    // create a merge commit even if using ff
+=======
+Make sure to fast for the one thats behind it after rebasing
+Rebase from the branch u want to mv
+
+Rebase from anywhere:
+Git rebase basebranch branchtomove
+>>>>>>> df9f921 (notes)
 
 ## rebasing 
 ### make sure to git add your files after fixing conflict before continuing
