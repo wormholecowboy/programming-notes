@@ -133,3 +133,58 @@ runtime: log(n)
 TRIE TREE
 Often used for caching or auto-complete. Like a tree or graph of letters that create words. 
 Insertion and deletion go up and down nodes to check if child is the next letter of given string, for ex. 
+
+
+GRAPHS
+cycle: visiting 3 or more nodes and returning to original
+acyclic: graph that contains no cycles
+connected: when every node has a path to another node
+directed: when paths have one way direction
+undirected: both way directions
+node: vertex, point
+weighted: connections have associated weight
+edge: connection
+runtime is O(V * E)
+
+2 main types: Adjency list and matrix(less common)
+List is array of nodes. Nodes have array of edges and weights. 
+
+BFS on a graph
+returns a path
+uses prev and seen arrays to manage path. prev keeps track of what node put another node in the queue. o
+must build out the path to get to needle after going through the graph
+
+DFS on a raph
+recursion
+O(E+V)
+
+
+DIJKSTRA'S SHORTEST PATH
+Gives you the shortest path from one node to every other node in the graph.
+uses BFS
+uses a prev list
+can't use negative weighs
+runtime: O(V^2 + E)
+
+
+MAPS
+load factor: amount of data in map vs. max capacity
+key: hashable value that points to value. 
+value: 
+collision: 2 keys map to same cell
+
+ideal load factor is 0.7
+uses hashing algo to find place to put key:value into the array:  key -> hash code -> index of array
+if collisions occur, they use different ways to move to the next available slot: chaining
+
+
+LRU - Least Recently Used
+caching mechanism that will evict the least recently used item
+uses a doubly linked list
+Runtime: O(1)
+
+
+
+
+
+

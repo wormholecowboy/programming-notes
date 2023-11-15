@@ -22,6 +22,15 @@ czP     pop
 dv      vert diff
 
 
+# WORKTREES
+git add worktree </path-you-want> <branch-you-want-to-clone>
+OR git add wortree <branch> for short
+git add wortree -b <path> <new-branch> <branch-to-base-it-on>
+git add wortree -b newbranch
+git remove worktree <path>
+git worktree list
+
+
 # DIFF 
  ##  compare staging and working
 git diff
