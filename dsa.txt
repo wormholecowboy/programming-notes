@@ -124,7 +124,7 @@ Heaps maintain a weak ordering
 Heaps are always balanced, complete on each level, no gaps
 Deleting removes the top node, inserting adds to the bottom and bubbles up
     Delete top node and replace with last node, then heapify down to it's place.
-if indexing the nodes to an array, can calculate child indexes using 2i+1 and 2i+2. Get parent with (i-1)/2
+when indexing the nodes to an array, can calculate child indexes using 2i+1 and 2i+2. Get parent with (i-1)/2
 helper functions for getting parent and child indices
 length is used for insertion and deletion
 runtime: log(n)
@@ -182,7 +182,7 @@ LRU - Least Recently Used
 caching mechanism that will evict the least recently used item
 uses a doubly linked list
 Runtime: O(1)
-
+Must remember to update your lookup an revLookup when trimming cache.
 
 
 
