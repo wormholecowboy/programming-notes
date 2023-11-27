@@ -1,6 +1,3 @@
-LINEAR SEARCH
-simple for loop that searches the indexes in 1.
-
 MISC
 # Is the data ordered? If so, you have advantages: (binary search)
 constraints make things able to be fast

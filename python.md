@@ -7,6 +7,21 @@ MISC
 • String literal: f'Some thing and {anotherVarThing}!' (use commas if not using literal)
 • Recursive functions need a base case to make sure it stops, written with if statement
 • Lamda fn: anonymous function
+# (is vs. ==) is checks if two variables refer to the same object, but == checks
+# if the objects pointed to have the same values.
+- Don't use the equality "==" symbol to compare objects to None
+      Use "is" instead. This checks for equality of object identity.
+
+# if can be used as an expression
+# Equivalent of C's '?:' ternary operator
+"yay!" if 0 > 1 else "nay!"  # => "nay!"
+
+same as the js spread operator
+li2 = li[:] 
+
+easy swapping
+a,b = b,a
+
 
 SORT JSON DICT OR LIST by inner keys
 sorted( dictName, key = lambda col: col[ 'keyYouWant'] )
@@ -37,33 +52,6 @@ Tuples have a slightly higher time efficiency than lists
 • A set is unordered and has only uniques (good way to de-dupe a list)
 • Queue: FIFO
 • Stack: LIFO
-
-
-FUNCTIONS
-
-def functionName():
-function body
-
-''''
-This is a
-multi-line
-text string
-
-also called docstring
-
-use for multi-line strings
-'''
-
-pass keyword: tells python to ignore function for now (no code yet)
-
-self is same as 'this' in js
-must include it in parameters
-
-INCREMENTING:
-
-```python
-count += 1
-```
 
 
 OOP
@@ -108,39 +96,50 @@ None = Null in Python
 def __init__(self, arg=None)
 ```
 
-OPEN FILES
+FILES
 
 ```python
 #opening files
 
+
+os.path.join(folder, anotherFolder)
+os.getcwd()
+os.chdir(dir)
+os.path.abspath(relativePath)
+os.unlink(file)  # delete a file
+os.rmdir(dir)  # folder must be empty
+shutil.rmtree(dir)  # deletes a full folder
+send2trach.send2trach(path)  # safer delete
+
+os.walk(path)  # walks a tree, useful in a loop
+for folder, subfolder, file in os.walk(path)
+
 with open('filename.txt') as whatever_variable:
 		contents = whatever_variable.read()
-```
+whatever_variable.close()
 
-ERROR HANDLING
 
-```python
-#keyords: try & except
-
-				try:
-          #function body
-
-        except {errormessage}:
-            # What to do in case of error
-        else:
-            # What to do in case of success
-```
-
-WRITE A FILE
-
-```python
 def writeFile(self, filepathname, texttoinsert)
 		with open(filepathname, 'w') as fileobj:
 				fileobj.write(texttoinsert)
 
 # 'w' tells the open function that you want to write
-
 # 'a' is to append to the file
+
+
+import shelve  #stores non-text data to a file for later use
+# works like a dict for accessing
+# persists objects for later use
+shelve.open('filename')
+shelve.close()
+
+
+import shutil
+shutil.copy(filepath, filedestination)
+shutil.copytree(foldertocopy, destination)
+shutil.move(file, dest)
+
+
 ```
 
 LIST COMPREHENSION: Create a list based on a previous list (can be filtered)
@@ -201,3 +200,39 @@ from package2.subpackage1.module5 import function2
 from .some_module import some_class
 from ..some_package import some_function
 from . import some_class
+
+
+# REGEX
+import re
+
+create regex objects with this method + raw strings
+searchPattern = re.compile(r'.*')
+searchPattern = re.compile(r'.*', re.I)  // ignore case
+searchPattern = re.compile(r'.*', re.DOTALL)  // .* even grabs new lines
+combine args with pipe
+ 
+mo = searchPattern.search(string)  // only finds first instance
+mo = searchPattern.findall(string)
+mo = searchPattern.sub(stringToSubIn, text)  // you can use groups in the sub string too
+
+these return a match object with its own methods
+mo.group()  // displays mo
+
+VERBOSE mode doesn't count white spaces, nicer formatting
+regex = re.compile(r'''
+\d\d\d 
+.*       #random comment
+\w''', re.VERBOSE) 
+
+
+# DEBUGGING
+try and except
+raise Exception('error message')
+assert condition, 'message if not true'
+    this is usefule for debugging
+use traceback module to log to a file
+OR
+import logging
+logging.BasicConfig(filename="file.txt", level=loggig.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.debug("message you want in your program")
+logging.disable(logging.CRITICAL)   temp suspend logging
