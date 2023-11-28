@@ -8,7 +8,7 @@ more packages can be added to etc/pacman.conf
 Color
 ILoveCandy
 
-sudo pacman -Sy   update the pacman repots
+sudo pacman -Sy   update the pacman repos
             -Syu  update your packages too
             -Sc   remove old package versions
             -Qs   list all your packages
