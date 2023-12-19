@@ -151,7 +151,7 @@ returns a path
 uses prev and seen arrays to manage path. prev keeps track of what node put another node in the queue. o
 must build out the path to get to needle after going through the graph
 
-DFS on a raph
+DFS on a graph
 recursion
 O(E+V)
 

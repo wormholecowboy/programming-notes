@@ -10,16 +10,41 @@ git restore --staged <file>
 ## unmodify a file
 git retore <file>
 
+# GIT SIGNS
+td      to see old changes hunk
+tb      inline blame
 
 # FUGITIVE
 []c     scroll through commits
 Gvdiff  see a diff for current file    
+Gvdiff main   see a diff for another branch or commit
 Git blame
 czz     stash
 czA     apply top stash
 cza     apply top stash, preserve index
 czP     pop
 dv      vert diff
+dq      quit the vert diff
+Shift x to delete a change in unstaged
+
+Gvdiffsplit        compare working to last commit
+Gvdiffsplit main   to compare changes to main branch
+Gvdiffsplit!       keep focus on current window
+G difftool -y      see changes for each file in a tab
+tabo               get rid of tabs?
+
+Gedit main:file.js      open a file in certain branch
+Gread                   same but replaces your current buffer
+
+G log
+O   to see changes in tab
+o   to see changes in split
+coo checkout that commit
+
+merge conflicts (Gvdiffsplit!)
+]c      next hunk
+d2o     select right side solution
+d3o     select left
 
 
 # WORKTREES
@@ -36,8 +61,12 @@ git worktree list
 git diff
  ## compare staging and last commit
 git diff --staged
+## compare staging and working with last commit
  ## help
 git diff --tool-help
+
+git diff hash1 hash2
+git diff branch1 branch2
 
 
 # PULL REQUEST PROCESS
@@ -45,13 +74,16 @@ git diff --tool-help
 2. clone your fork in CLI
 3. create new branch inside clone “git checkout -b <branchfixname>”
 4. make change and commit
-5. push commit “git push origin <branchfixname>”
+5. push commit “git push origin -u <branchfixname>”
 6. Click “compare and pull request” green button on github
+opt. add the orig repo as a remote so you can stay in sync with and pull from orig
+    git remote add upstream <URL>
 
 
 # PULLING: IGNORE LOCAL
 ## overwite local changes
 git reset --hard
+git reset --hard origin/main 
 git pull
 
 If there are untracked local files you could use `git clean` to remove them.
@@ -161,13 +193,6 @@ git remote set-url origin git@HOST:USERNAME/REPOSITORY.git
 
 
 # CONFLICTS
-## Fast-Forwards have the same parent
-## Merge commits have more than one parent
-
-
-## If your local is just behind remote, than run a
-## fast-forward merge: pulling down the most recent commit from remote
-## Otherwise, with conflicts, you can:
 
 ## 1. pull down and merge both commits into a new commit
 ## 2. Or rebase: take out local commit temp, then add it back in after remote.
@@ -188,6 +213,13 @@ git push
 # move a branch's base to a newer master commit (if you got left behind)
 # never rebase commits that have been pushed to a remote!!
 git rebase master # must be inside branch you want to rebase
+
+## interactive rebase
+git rebase -i main
+
+pick <commit>
+fixup <commit>    this sqaushes this commit into previous one
+pick <commit>
 
 
 # CONFIG
@@ -225,6 +257,8 @@ git stash list
 git stash apply <indexNumber>
  ### applies your stash, deletes that stash from mem
 git stash pop <indexNumber>
+### clear it
+git stash clear
 
 
 # TAGS
@@ -285,6 +319,7 @@ git revert <commitToIgnore>
 # RESET
 ## Reset alters staging area or changes what commit branch head is pointing to (may alter history)
 
+### removes from staging and preserves working changes
 git reset <fileName>
  ### resets staging to match most recent commit (working dir unaffected)
 git reset

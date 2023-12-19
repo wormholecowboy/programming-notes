@@ -1,7 +1,3 @@
-# OP: Python
-
-Created: January 27, 2022 6:14 PM
-Updated: May 14, 2022 11:29 AM
 
 MISC
 • String literal: f'Some thing and {anotherVarThing}!' (use commas if not using literal)
@@ -125,6 +121,9 @@ def writeFile(self, filepathname, texttoinsert)
 
 # 'w' tells the open function that you want to write
 # 'a' is to append to the file
+# 'wb' is write binary (useful for when writing using text from the web)
+# or you can specify the encoding
+        with open(file, 'w', encoding='utf-8')
 
 
 import shelve  #stores non-text data to a file for later use
