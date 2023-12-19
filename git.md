@@ -1,3 +1,5 @@
+HEAD refers to a specific branch, not a commit, except when in detached state.
+
 # HANDY 
  ## keep file but rm from staging
 git rm --cached  
@@ -49,7 +51,8 @@ d3o     select left
 
 # WORKTREES
 git add worktree </path-you-want> <branch-you-want-to-clone>
-OR git add wortree <branch> for short
+OR 
+git add wortree <branch> for short
 git add wortree -b <path> <new-branch> <branch-to-base-it-on>
 git add wortree -b newbranch
 git remove worktree <path>
@@ -62,7 +65,8 @@ git diff
  ## compare staging and last commit
 git diff --staged
 ## compare staging and working with last commit
- ## help
+git diff HEAD
+## help
 git diff --tool-help
 
 git diff hash1 hash2
@@ -80,8 +84,11 @@ opt. add the orig repo as a remote so you can stay in sync with and pull from or
     git remote add upstream <URL>
 
 
-# PULLING: IGNORE LOCAL
-## overwite local changes
+
+
+# MISC
+
+## overwite local changes - pull and kill local
 git reset --hard
 git reset --hard origin/main 
 git pull
@@ -91,8 +98,6 @@ If there are untracked local files you could use `git clean` to remove them.
 - `df` to remove untracked files and directories
 - `xdf` to remove untracked or ignored files or directories
 
-
-# MISC
 ## Override local with the remote
 git fetch main
 git reset --hard origin/main
@@ -107,34 +112,8 @@ git push --force origin <remote-branch-name>
 git rm -r -cached . 
 
 
-# BRANCHES
-## create branch
-git branch <name>
-
-## switching
-git checkout 
-git switch -c <newBranchName> #create new and switch
-git switch - #switch back to last branch
-
-## rename branch
-git branch -m <newName>
-
-## show local AND remote branches
-git branch -a
-
-## delete branch
-git branch -d <name>
-## -D for unmerged branches
-
-## delete on remote too
-git push origin --delete <remotename>
-
-# merge branch into the one you're in
-git merge <name>
-git mergetool # for conflicts OR use VScode
-
-
 # REMOTE
+
 ## Add a local branch from a remote branch
 git branch <local> <origin>/<branchname>
 git merge <origin>/<branchname> ## merge in the remote
@@ -194,25 +173,22 @@ git remote set-url origin git@HOST:USERNAME/REPOSITORY.git
 
 # CONFLICTS
 
-## 1. pull down and merge both commits into a new commit
-## 2. Or rebase: take out local commit temp, then add it back in after remote.
+# merge branch into the one you're in
+git merge <name>
+git merge --no-ff    // create a merge commit even if using ff
 
-git pull --rebase
-git rebase -abort #if you fuck something up
-git rebase -skip #to skip the other commit
+
+git rebase -abort  // if you fuck something up
+git rebase -skip   // to skip the other commit
 
 ## Override the remote repo with local
-## push your other branch to the end of the main branch (newest commits)
+### push your other branch to the end of the main branch (newest commits)
 git rebase main 
-## from your feature branch. this changes what commit it's anchored off of, but it's still seen as separate commits from main
-## then switch to main and rebase again to merge the commits into main
+### from your feature branch. this changes what commit it's anchored off of, but it's still seen as separate commits from main
+### then switch to main and rebase again to merge the commits into main
 git rebase <featurebranch>
 #then
 git push
-
-# move a branch's base to a newer master commit (if you got left behind)
-# never rebase commits that have been pushed to a remote!!
-git rebase master # must be inside branch you want to rebase
 
 ## interactive rebase
 git rebase -i main
@@ -220,6 +196,14 @@ git rebase -i main
 pick <commit>
 fixup <commit>    this sqaushes this commit into previous one
 pick <commit>
+
+
+## SQUASHING
+run from feature
+git rebase master --interactive
+    pick    // show this in history
+    squash  // use commit, but meld into previous
+    fixup   // ignore commit msg
 
 
 # CONFIG
@@ -276,6 +260,7 @@ git push --delete <remote> <tagname>
 
 
 # RESTORE undo, remove from staging
+
  ### undo all from staging
 git restore .
  ### remove from staging
@@ -312,8 +297,6 @@ git revert HEAD
 git revert <commitToIgnore>
 
 ## https://christoph.ruegg.name/blog/git-howto-revert-a-commit-already-pushed-to-a-remote-reposit.html
-## reset will actually delete the commit
-## AVOID USING RESET AT ALL
 
 
 # RESET
@@ -328,7 +311,10 @@ git reset HEAD
 git reset <commit>
  ### will also delete working dir changes
 git reset --hard
+git checkout HEAD file   // discard for one file only
+git checkout -- file    // same
 git reset --hard <commit>
+
 
 
 # BISECT: Diagnosing which commit is breaking
