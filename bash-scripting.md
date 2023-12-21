@@ -108,6 +108,29 @@ while read FIRST SECOND RESTOFLINE
 [[ FILE1 -ot FILE2 ]]	2 is more recent than 1
 [[ FILE1 -ef FILE2 ]]	Same files
 
+[ -a existingfile ]	file 'existingfile' exists.	if [ -a tmp.tmp ]; thenrm -f tmp.tmp # Make sure we're not bothered by an old temporary filefi
+[ -b blockspecialfile ]	file 'blockspecialfile' exists and is block special.	Block special files are special kernel files found in /dev, mainly used for ATA devices like hard disks, cd-roms and floppy disks.if [ -b /dev/fd0 ]; thendd if=floppy.img of=/dev/fd0 # Write an image to a floppyfi
+[ -c characterspecialfile ]	file 'characterspecialfile' exists and is character special.	Character special files are special kernel files found in /dev, used for all kinds of purposes (audio hardware, tty's, but also /dev/null).if [ -c /dev/dsp ]; thencat raw.wav > /dev/dsp # This actually works for certain raw wav filesfi
+[ -d directory ]	file 'directory' exists and is a directory.	In UNIX-style, directories are a special kind of file.if [ -d ~/.kde ]; thenecho "You seem to be a kde user."fi
+[ -e existingfile ]	file 'existingfile' exists.	(same as -a, see that entry for an example)
+[ -f regularfile ]	file 'regularfile' exists and is a regular file.	A regular file is neither a block or character special file nor a directory.if [ -f ~/.bashrc ]; thensource ~/.bashrcfi
+[ -g sgidfile ]	file 'sgidfile' exists and is set-group-ID.	When the SGID-bit is set on a directory, all files created in that directory will inherit the group of the directory.if [ -g . ]; thenecho "Created files are inheriting the group '$(ls -ld . | awk '{ print $4 }')' from the working directory."fi
+[ -G fileownedbyeffectivegroup ]	file 'fileownedbyeffectivegroup' exists and is owned by the effective group ID.	The effective group id is the primary group id of the executing user.if [ ! -G file ]; then # An exclamation mark inverts the outcome of the condition following itchgrp $(id -g) file # Change the group if it's not the effective onefi
+[ -h symboliclink ]	file 'symboliclink' exists and is a symbolic link.	if [ -h $pathtofile ]; thenpathtofile=$(readlink -e $pathtofile) # Make sure $pathtofile contains the actual file and not a symlink to itfi
+[ -k stickyfile ]	file 'stickyfile' exists and has its sticky bit set.	The sticky bit has got quite a history, but is now used to prevent world-writable directories from having their contents deletable by anyone.if [ ! -k /tmp ]; then # An exclamation mark inverts the outcome of the condition following itecho "Warning! Anyone can delete and/or rename your files in /tmp!"fi
+[ -L symboliclink ]	file 'symboliclink' exists and is a symbolic link.	(same as -h, see that entry for an example)
+[ -N modifiedsincelastread ]	file 'modifiedsincelastread' exists and was modified after the last read.	if [ -N /etc/crontab ]; thenkillall -HUP crond # SIGHUP makes crond reread all crontabsfi
+[ -O fileownedbyeffectiveuser ]	file 'fileownedbyeffectiveuser' exists and is owned by the user executing the script.	if [ -O file ]; thenchmod 600 file # Makes the file private, which is a bad idea if you don't own itfi
+[ -p namedpipe ]	file 'namedpipe' exists and is a named pipe.	A named pipe is a file in /dev/fd/ that can be read just once. See my bash tutorial for a case in which it's used.if [ -p $file ]; thencp $file tmp.tmp # Make sure we'll be able to readfile="tmp.tmp"    # the file as many times as we likefi
+[ -r readablefile ]	file 'readablefile' exists and is readable to the script.	if [-r file ]; thencontent=$(cat file) # Set $content to the content of the filefi
+[ -s nonemptyfile ]	file 'nonemptyfile' exists and has a size of more than 0 bytes.	if [ -s logfile ]; thengzip logfile    # Backup the old logfiletouch logfile # before creating a fresh one.fi
+[ -S socket ]	file 'socket' exists and is a socket.	A socket file is used for inter-process communication, and features an interface similar to a network connection.if [ -S /var/lib/mysql/mysql.sock ]; thenmysql --socket=/var/lib/mysql/mysql.sock # See this MySQL tipfi
+[ -t openterminal ]	file descriptor 'openterminal' exists and refers to an open terminal.	Virtually everything is done using files on Linux/UNIX, and the terminal is no exception.if [ -t /dev/pts/3 ]; thenecho -e "nHello there. Message from terminal $(tty) to you." > /dev/pts/3 # Anyone using that terminal will actually see this message!fi
+[ -u suidfile ]	file 'suidfile' exists and is set-user-ID.	Setting the suid-bit on a file causes execution of that file to be done with the credentials of the owner of the file, not of the executing user.if [ -u executable ]; thenecho "Running program executable as user $(ls -l executable | awk '{ print $3 }')."fi
+[ -w writeablefile ]	file 'writeablefile' exists and is writeable to the script.	if [ -w /dev/hda ]; thengrub-install /dev/hdafi
+[ -x executablefile ]	file 'executablefile' exists and is executable for the script.	Note that the execute permission on a directory means that it's searchable (you can see which files it contains).if [ -x /root ]; thenecho "You can view the contents of the /root directory."fi
+
+
 
 # WILDCARDS
 * matches zero or more

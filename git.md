@@ -71,7 +71,7 @@ git diff --tool-help
 
 git diff hash1 hash2
 git diff branch1 branch2
-
+git diff feature..master
 
 # PULL REQUEST PROCESS
 1. fork on github
@@ -122,7 +122,7 @@ git checkout -b <newlocalbranch> origin/remotebranch
 ## OR 
 git checkout --track origin/remotebranch
 ## OR
-git checkout <remotebranch>
+git switch <remotebranch>
 
 ## Add remote branch from a local branch
 git checkout <localbranch>
@@ -173,22 +173,22 @@ git remote set-url origin git@HOST:USERNAME/REPOSITORY.git
 
 # CONFLICTS
 
-# merge branch into the one you're in
+## merge branch into the one you're in
 git merge <name>
 git merge --no-ff    // create a merge commit even if using ff
 
-
-git rebase -abort  // if you fuck something up
-git rebase -skip   // to skip the other commit
+## rebasing 
+### make sure to git add your files after fixing conflict before continuing
+git rebase --abort  // if you fuck something up
+git rebase --skip   // to skip the other commit
+git rebase --continue  // keep going after fixing conflict
 
 ## Override the remote repo with local
 ### push your other branch to the end of the main branch (newest commits)
 git rebase main 
-### from your feature branch. this changes what commit it's anchored off of, but it's still seen as separate commits from main
 ### then switch to main and rebase again to merge the commits into main
 git rebase <featurebranch>
-#then
-git push
+git push origin main -F
 
 ## interactive rebase
 git rebase -i main
@@ -200,7 +200,7 @@ pick <commit>
 
 ## SQUASHING
 run from feature
-git rebase master --interactive
+git rebase main --interactive
     pick    // show this in history
     squash  // use commit, but meld into previous
     fixup   // ignore commit msg
@@ -222,12 +222,20 @@ git config --global core.excludesfile <file>
 ### See your configurations
 git config --list
 
-### or look at your ~/.gitconfig file. The local configuration will be in your repository's .git/config file.
+### See config files location
 git config --list --show-origin
 ### to see where that setting is defined (global, user, repo, etc...)
 
+### See ignore file
+git config --get core.excludesfile
+
+## Set path for ignore
+git config --global core.excludesfile <path>
+
 ## ALIASES
-git config --global alias.co checkout
+git config --global alias.myalias "log --oneline"
+git config --global alias.myalias "!sh -c 'echo Hello, this is a custom alias'"
+git config --global --unset alias.myalias
 
 
 # STASH
@@ -259,7 +267,7 @@ git tag -d <name>
 git push --delete <remote> <tagname>
 
 
-# RESTORE undo, remove from staging
+# RESTORE   unstage , undo working
 
  ### undo all from staging
 git restore .
@@ -268,10 +276,10 @@ git restore --staged <file>
 git restore -S <file>
  ### WARN discards local changes revert to last commit/stage
 git restore <file>
- ### alt remove staging
-git reset HEAD <file>
- ### revert file back to staging version (WARNING: will delete your working dir version)
+ ### restore file back to staging version (WARNING: will delete your working dir version)
 git checkout -- <file>
+ ### restore back to a previous commit
+git restore --source HEAD~3 file
 
 
 # CLEAN
@@ -290,30 +298,25 @@ git clean -df
 
 ## REVERT creates a new commit that undoes changes from previous(does not modify history)
 ## revert undoes commit by creating a new one (copy of previous)
-## (keeps old commit)
 
  ### will get rid of current commit
 git revert HEAD
 git revert <commitToIgnore>
 
-## https://christoph.ruegg.name/blog/git-howto-revert-a-commit-already-pushed-to-a-remote-reposit.html
-
 
 # RESET
-## Reset alters staging area or changes what commit branch head is pointing to (may alter history)
 
 ### removes from staging and preserves working changes
 git reset <fileName>
  ### resets staging to match most recent commit (working dir unaffected)
 git reset
-git reset HEAD
- ### resets staging back to that commit (working dir unaffected)
+ ### delte all commits after given commit, keeps working changes
 git reset <commit>
  ### will also delete working dir changes
 git reset --hard
+git reset --hard <commit>
 git checkout HEAD file   // discard for one file only
 git checkout -- file    // same
-git reset --hard <commit>
 
 
 
