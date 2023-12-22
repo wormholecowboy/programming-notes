@@ -190,12 +190,17 @@ git rebase main
 git rebase <featurebranch>
 git push origin main -F
 
+## Rebase can also be used to clean up history
 ## interactive rebase
-git rebase -i main
+git rebase -i HEAD~4
+git rebase -i feature
 
-pick <commit>
-fixup <commit>    this sqaushes this commit into previous one
-pick <commit>
+pick <commit>       use this
+fixup <commit>      meld into prev commit and discard message
+squash <commit>     meld into prev commit and keep message
+reword <commit>     use commit but reword message
+drop <commit>       discard commit completely
+edit <commit>       use commit but pause for amending
 
 
 ## SQUASHING
