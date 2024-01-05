@@ -95,6 +95,26 @@ also trimmed.  The targets b, B, r, and a are aliases for ), }, ], and >
 subject to change).
 
 
+# QUICK FIX LIST
+copen
+ccl  clear
+### nav
+cc <number>
+cfirst
+clast
+cnext
+cprev
+### navigate quick fix lists (last 10)
+colder
+cnewer
+### seach folder recursively
+vim /pattern/ src/**
+### search and replace and save all buffers
+cdo %s/pattern/replace/g | update
+### close all files
+cfdo bd
+### save quick fix list
+w file.txt
 
 
 # LUA
