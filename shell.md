@@ -57,6 +57,17 @@ Ctrl Z and fg for minimizing and returning
 #DELETING
 delete something recursively: find . -name ".DS_Store" -type f -delete
 
+# reusing commands and arguments
+!:0 = the name of command executed.
+!:1 = the first parameter of the previous command
+!:4 = the fourth parameter of the previous command
+!:* = all of the parameters of the previous command
+!^ = the first parameter of the previous command (same as !:1)
+!$ = the final parameter of the previous command
+!:-3 = all parameters in range 0-3 (inclusive)
+!:2-5 = all parameters in range 2-5 (inclusive)
+!! = the previous command line
+
 # peaking into files
 
 head file.txt # shows first 10 lines

@@ -176,6 +176,8 @@ git remote set-url origin git@HOST:USERNAME/REPOSITORY.git
 ## merge branch into the one you're in
 git merge <name>
 git merge --no-ff    // create a merge commit even if using ff
+Make sure to fast forward the one thats behind it after rebasing
+
 
 ## rebasing 
 ### make sure to git add your files after fixing conflict before continuing
