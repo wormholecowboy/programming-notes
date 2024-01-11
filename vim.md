@@ -49,6 +49,31 @@ yanks stay in memory, most recent from 0-9
 recall - “0p
 last inserted text - “.
 
+-INSERT MODE
+
+Ctrl-o       execute normal mode command
+
+10i          repeating insert
+Ctrl-w      " delete one word
+Ctrl-u      " delete entire line
+Ctrl-r      insert from register
+Ctrl-r "    insert the last yank/delete
+Ctrl-r %    insert file name
+Ctrl-r /    insert last search term
+Ctrl-r :    insert last command line
+
+Ctrl-x Ctrl-y   " scroll up
+Ctrl-x Ctrl-e   " scroll down
+
+
+Ctrl-x Ctrl-l   " insert a whole line
+Ctrl-x Ctrl-n   " insert a text from current file
+Ctrl-x Ctrl-i   " insert a text from included files
+Ctrl-x Ctrl-f   " insert a file name
+Ctrl-x Ctrl-]   " insert from tags (must have tags)
+Ctrl-x Ctrl-o   " insert from omnicompletion. Filetype specific.
+
+
 -SURROUND
 
 
