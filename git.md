@@ -88,11 +88,6 @@ opt. add the orig repo as a remote so you can stay in sync with and pull from or
 
 # MISC
 
-## overwite local changes - pull and kill local
-git reset --hard
-git reset --hard origin/main 
-git pull
-
 If there are untracked local files you could use `git clean` to remove them.
 - `git clean -f` to remove untracked files
 - `df` to remove untracked files and directories
@@ -102,6 +97,7 @@ If there are untracked local files you could use `git clean` to remove them.
 git fetch main
 git reset --hard origin/main
 git clean -df #removes untracked files that are not necessary
+git pull
 
 ## Override the remote with local
 git fetch origin

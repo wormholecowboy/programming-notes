@@ -22,23 +22,10 @@ Marks: m <key>
 Jump to mark: “ <key>
 Use m <capital keys> for global marks
 
-# CUT, COPY, PASTE
-
-vip - select whole paragraph
-vib - select inside parenth
-vab - select parenth
-viB - select inside brackets
-vaB - select brackets
-ciB - change inside brackets
-
-# BUFFERS
-
-:ls // list of current buffers
-:bdelete <file> OR <num> (can do multiple)
-:sbuffer <nameORnum> // open buff in new split
-
 :e edit
 :b // open new buffer
+:sbuffer <nameORnum> // open buff in new split
+:sb
 Close all but current: Ctrl w o
 Open new split: w v, w s
 Equal splits: ctrl w =
@@ -134,7 +121,7 @@ colder
 cnewer
 ### seach folder recursively
 vim /pattern/ src/**
-### search and replace and save all buffers
+### search and replace and save all buffers (global variable rename)
 cdo %s/pattern/replace/g | update
 ### close all files
 cfdo bd
