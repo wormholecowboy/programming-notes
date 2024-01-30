@@ -235,3 +235,22 @@ import logging
 logging.BasicConfig(filename="file.txt", level=loggig.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 logging.debug("message you want in your program")
 logging.disable(logging.CRITICAL)   temp suspend logging
+
+
+# VENV VIRTUAL ENVIRONMENTS
+## create
+python3 -m venv <directory_name>  // convention to name it .venv
+
+## activate
+. .venv/bin/activate
+deactivate
+
+## install
+python -m pip install <package-name>
+### Note: Because you’ve created your virtual environment using a version of Python 3, you don’t need to call python3 or pip3 explicitly. As long as your virtual environment is active, python and pip link to the same executable files that python3 and pip3 do.
+
+## create requirements file
+pip freeze > requirements.txt
+
+## install from requirements
+pip install -r requirements.txt

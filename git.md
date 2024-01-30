@@ -1,6 +1,8 @@
 HEAD refers to a specific branch, not a commit, except when in detached state.
 
 # HANDY 
+ ## remove all files from staging, keep working changes
+git reset
  ## keep file but rm from staging
 git rm --cached  
  ##  remove file from hdd too

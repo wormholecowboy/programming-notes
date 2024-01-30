@@ -9,6 +9,20 @@
 
 :%s/findWord/replaceWord/g (remove % for single line)
 
+# LAZY NVIM
+Lazy sync // install, clean, update
+Lazy help
+Lazy home
+
+Lazy restore [plugin]
+Lazy clean  // get rid of old plugins
+Lazy update [plugin]
+
+Lazy log [plugin]
+    press r to revert to a commit
+Lazy restore  // revert to lock file (check git for previous versions if needed)
+    or keep a backup file of lock file before updating all plugins
+
 # MACROS
 
 create: `q<register><commands>q`

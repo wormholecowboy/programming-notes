@@ -1,5 +1,15 @@
 USERS
-
+users
 whoami
+
+
+SYSTEMD
+systemctl enable <service>
+  disable
+  status
+  sudo restart
+  start
+  stop
+systemctl reboot
 
  
