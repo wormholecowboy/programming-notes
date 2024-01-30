@@ -126,6 +126,9 @@ git switch <remotebranch>
 git checkout <localbranch>
 git push <origin> <localbranch>:<newremotebranch>
 
+## Add a local branch to remote repo
+git push -u <origin> <local-branch-name>
+
 ## Update a remote branch from local
 git push <origin> <local>:<remote>
 
