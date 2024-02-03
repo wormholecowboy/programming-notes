@@ -104,7 +104,9 @@ var someObject = {
 
 -FOR OF vs FOR IN
 
-Both `for..of` and `for..in` statements iterate over lists; the values iterated on are different though, `for..in` returns a list of keys on the object being iterated, whereas `for..of` returns a list of values of the numeric properties of the object being iterated.
+Both `for..of` and `for..in` statements iterate over lists; the values iterated on are different though, `for..in` returns a 
+list of keys on the object being iterated, whereas `for..of` returns a list of values of the numeric properties of the object 
+being iterated.
 
 Here is an example that demonstrates this distinction:
 
