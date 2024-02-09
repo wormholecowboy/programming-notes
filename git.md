@@ -75,6 +75,23 @@ git diff hash1 hash2
 git diff branch1 branch2
 git diff feature..master
 
+## config for difftool and mergetool
+[difftool]
+    prompt = true
+[diff]
+    tool = nvimdiff
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+[merge]
+	tool = "nvim"
+
+[mergetool]
+	keepBackup = false
+	prompt = false
+
+[mergetool "nvim"]
+	cmd = "nvim -d -c \"wincmd l\" -c \"norm ]c\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
+
 # PULL REQUEST PROCESS
 1. fork on github
 2. clone your fork in CLI
@@ -328,13 +345,16 @@ git checkout -- file    // same
 
 
 
-# BISECT: Diagnosing which commit is breaking
-# starts a designated commit and walks you through each
-# you label commits as good or bad as you test
+# BISECT
 
 git bisect start
-git bisect bad
-git bisect good <commitId>
+## give bisect a range to work in (not including commit uses the current HEAD position)
+git bisect bad HEAD 
+git bisect good <first commit>
+## bisect will start selecting commits for you. Lable them.
+git bisect good <or> bad
+## reset state
+git bisect reset
 
 
 

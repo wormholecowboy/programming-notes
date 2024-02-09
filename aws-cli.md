@@ -1,0 +1,8 @@
+
+
+## setup
+aws configure
+
+
+
+

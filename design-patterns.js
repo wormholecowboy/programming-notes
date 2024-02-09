@@ -75,6 +75,7 @@ for (let p of search2) {
 // - If you have a class implementing an interface, it should use every portion of that interface. Otherwise, you need to break out your interfaces into smaller ones.
 // - Don't make people implement more than they need to
 
+
 // MIXIN
 // extra function you will add dynamically
 let extraFunctionality = {
@@ -98,6 +99,7 @@ const whatever = new MyClass(blah);
 
 // run method
 whatever.doSomething();
+
 
 // DEPENDENCY INVERSION
 
@@ -528,7 +530,59 @@ console.log("Total amount of copies: ", bookList.length);
 console.log("Total amount of books: ", isbnNumbers.size);
 
 
+// DECORATOR
+// wraps an unchangable object or class and adds fucntionality
 
+// Base class interface
+class Coffee {
+  getCost() {
+    return 5; // Base cost of a coffee
+  }
+
+  getDescription() {
+    return "Coffee"; // Base description
+  }
+}
+
+// Decorator class
+class CoffeeDecorator extends Coffee {
+  constructor(coffee) {
+    super();
+    this.coffee = coffee;
+  }
+
+  getCost() {
+    return this.coffee.getCost(); // Delegate cost calculation to the wrapped object
+  }
+
+  getDescription() {
+    return this.coffee.getDescription(); // Delegate description to the wrapped object
+  }
+}
+
+// Concrete decorator class
+class MilkDecorator extends CoffeeDecorator {
+  constructor(coffee) {
+    super(coffee);
+  }
+
+  getCost() {
+    return super.getCost() + 1; // Add cost of milk
+  }
+
+  getDescription() {
+    return super.getDescription() + ", with Milk"; // Add milk description
+  }
+}
+
+// Usage
+const myCoffee = new Coffee();
+console.log("Cost: $" + myCoffee.getCost()); // Output: Cost: $5
+console.log("Description: " + myCoffee.getDescription()); // Output: Description: Coffee
+
+const coffeeWithMilk = new MilkDecorator(myCoffee);
+console.log("Cost: $" + coffeeWithMilk.getCost()); // Output: Cost: $6
+console.log("Description: " + coffeeWithMilk.getDescription()); // Output: Description: Coffee, with Milk
 
 
 
