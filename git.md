@@ -294,12 +294,12 @@ git push --delete <remote> <tagname>
 
 # RESTORE   unstage , undo working
 
- ### undo all from staging
+ ### undo working back to staging state
 git restore .
  ### remove from staging
 git restore --staged <file>
 git restore -S <file>
- ### WARN discards local changes revert to last commit/stage
+ ### WARN discards local changes revert to last commit or stage
 git restore <file>
  ### restore file back to staging version (WARNING: will delete your working dir version)
 git checkout -- <file>
