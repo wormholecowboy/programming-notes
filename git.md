@@ -1,5 +1,7 @@
 HEAD refers to a specific branch, not a commit, except when in detached state.
 
+
+
 # HANDY 
  ## remove all files from staging, keep working changes
 git reset
@@ -337,6 +339,8 @@ git reset <fileName>
 git reset
  ### delte all commits after given commit, keeps working changes
 git reset <commit>
+OR
+git reset --soft HEAD~1
  ### will also delete working dir changes
 git reset --hard
 git reset --hard <commit>

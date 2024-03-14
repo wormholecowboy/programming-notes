@@ -14,7 +14,9 @@ SELECTING
     - main > h1: selects only the direct descendant h1s (depth = 1)
     - main, h1: selects h1's and main
     - main.class: selects main with this class
+    - main.class1.class2:  has both classes
     - main .class: selects tags INSIDE main with this class, regardless of depth
+    - div#nav *:  matches anything inside the div
     - p+h1: selects h1 if it comes right after p. need same parent.
     - p~h1: selects h1 if it is preceded anywhere by p. need same parent.
     - input[name="consent"]:checked   selects if is checked
