@@ -54,13 +54,20 @@ d3o     select left
 
 
 # WORKTREES
-git add worktree </path-you-want> <branch-you-want-to-clone>
-OR 
-git add wortree <branch> for short
-git add wortree -b <path> <new-branch> <branch-to-base-it-on>
-git add wortree -b newbranch
-git remove worktree <path>
+### new branch
+git add wortree <path (will also be branch/worktree name)>
+Or
+git add worktree -b <branch name> <path/worktree name>
+### create new based on another
+git add worktree -b <new branch> <path> <base branch>
+### existing remote
+git add worktree <path/worktree name> <remote branch>
+### throwaway
+git worktree add -d <path>
+### remove
+### -f for force
 git worktree list
+git worktree remove <path> 
 
 
 # DIFF 
@@ -131,15 +138,10 @@ git rm -r -cached .
 
 # REMOTE
 
-## Add a local branch from a remote branch
-git branch <local> <origin>/<branchname>
-git merge <origin>/<branchname> ## merge in the remote
+## Create local branch from a remote branch
+git checkout -t origin/remotebranch
 ## OR
 git checkout -b <newlocalbranch> origin/remotebranch
-## OR 
-git checkout --track origin/remotebranch
-## OR
-git switch <remotebranch>
 
 ## Add remote branch from a local branch
 git checkout <localbranch>
@@ -178,7 +180,7 @@ git remote rename old new
 git push origin --delete <remotename>
 
 ## see what remote branch local is tracking
-git remote -v
+git branch -v
 
 ## see all remote branches
 git ls-remote

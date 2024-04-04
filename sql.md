@@ -1,3 +1,31 @@
+# STRING MANIPULATION
+
+## LEFT and RIGHT
+### returns char up to num
+LEFT(column, num of char from left)
+
+## POSITION
+### returns position of char or string
+POSITION("string" IN column)
+POSITION(other_coumn IN column)
+
+## SUBSTRING
+### selects based on index start and length, can be combined with position and left/right
+SUBSTRING(column/string from start_position [for num_of_chars] )
+SUBSTRING(name from 2 for 3)
+
+## EXTRACT
+### returns segment of a date type
+EXTRACT(field from column)
+EXTRACT(DAY from timestamp_column)
+
+## TO_CHAR
+### returns strings format of date/time type
+TO_CHAR(date_column, output_format)
+TO_CHAR(date, "MM-YYYY")
+
+
+
 # SETUP
 CREATE DATABASE <name>
 CREATE SCHEMA <name>
@@ -21,6 +49,7 @@ CREATE TABLE order_details (
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
+
 
 
 # ROWS
@@ -252,3 +281,15 @@ $$;
 select average_salary(1);
 
 
+# INDEX
+Best to use on columns which you filter
+## B-Tree
+For high-cardinality columns (primary key, names) 
+## Bitmap
+For low-cardinality, slow to update, fast to read. storage efficient. for data warehouses. 
+
+CREATE INDEX index_name
+ON table_name
+    (
+    column_name
+    );
