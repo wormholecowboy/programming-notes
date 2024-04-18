@@ -1,3 +1,24 @@
+# DATA TYPES
+VARCHAR()
+CHAR()
+TEXT
+
+INT
+SMALLINT
+BIGINT
+SERIAL
+DECIMAL
+
+DATE
+TIME
+TIMESTAMP
+INTERVAL
+
+BOOLEAN
+ENUM
+  CREATE TYPE type_name AS ENUM("val", [...])
+ARRAY
+
 # STRING MANIPULATION
 
 ## LEFT and RIGHT
@@ -24,21 +45,27 @@ EXTRACT(DAY from timestamp_column)
 TO_CHAR(date_column, output_format)
 TO_CHAR(date, "MM-YYYY")
 
+## REPLACE
+### find and replace string
+REPLACE(column, old text, new text)
 
 
-# SETUP
+# CREATE DATABASE & TABLE
 CREATE DATABASE <name>
 CREATE SCHEMA <name>
 
-# TABLES
+# COLUMNS
+DROP TABLE <name>
+## truncate deletes all data in table
+TRUNCATE table_name
+
 CREATE TABLE orders (
     order_id SERIAL PRIMARY KEY,  // increments on creation
     order_date DATE DEFAULT CURRENT_DATE,
     total_amount DECIMAL(10, 2) DEFAULT 0.00,
     customer_id INT CHECK (customer_id > 0)     // check a constraint
+    customer_id CONSTRANT constraint_name INT CHECK (customer_id > 0)     // named constraint
 );
-
-DROP TABLE <name>
 
 ## foreign keys
 CREATE TABLE order_details (
@@ -50,6 +77,26 @@ CREATE TABLE order_details (
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
+## rename a column
+ALTER TABLE table_name
+RENAME COLUMN old_column_name TO new_column_name;
+
+## add a column
+ALTER TABLE users
+ADD COLUMN email VARCHAR(255) NOT NULL;
+
+## drop a column
+ALTER TABLE name DROP COLUMN name
+
+## adjust column constraints
+ALTER TABLE table name
+ALTER COLUMN column SET NOT NULL
+ALTER COLUNN col TYPE TEXT
+
+## add constraint to multiple columns at once
+ALTER TABLE table
+ADD CONSTRAINT name
+UNIQUE(col1, col2)
 
 
 # ROWS
@@ -82,18 +129,6 @@ WHEN NOT MATCHED THEN
     VALUES (T2.Id, T2.Title)
 
 
-# COLUMNS
-
-## rename a column
-ALTER TABLE table_name
-RENAME COLUMN old_column_name TO new_column_name;
-
-## add a column
-ALTER TABLE users
-ADD COLUMN email VARCHAR(255) NOT NULL;
-
-## drop a column
-ALTER TABLE name DROP COLUMN name
 
 
 # DATES
@@ -150,6 +185,21 @@ timzone("American/Denver", column_name)
 CREATE TYPE name AS ENUM("values", "more values")   // order is respected
  
 
+# GROUPING
+
+## ROLLUP
+### Creates pre-defined grouping sets. Better than trying to union together sel statements.
+### CUBE works the same way, but shows all permutations of the column combos
+SELECT
+    col1, col2, col3
+FROM table
+GROUP BY
+ROLLUP(
+   col1, col2, col3   // col1 will have highest priority
+)
+ORDER BY 1,2,3
+
+
 # ARRAYS
 ## create
 array_column INTEGER[]
@@ -196,12 +246,28 @@ WHERE name = 'John'
 
 
 # WINDOW FUNCTIONS
-# running total
+## aggregate/group data without losing rows/granularity
+AGG(agg_column) OVER(PARTITION BY partition_ column)
+
+## running total
 SELECT SUM(order_total) OVER (ORDER BY order_date)
 ## add this to group by something
 ### partition by acts as a group by in a window function
 ### is applied to results of main select
 SELECT SUM(order_total) OVER (PARTITION BY customer_id ORDER BY order_date)
+
+## create a rank based on columns
+SELECT DENSE_RANK() OVER(ORDER BY name)
+
+## FIRST VALUE
+FIRST_VALUE(col)
+
+## LEAD and LAG
+### select previous or next row value
+LAG(return_value [,offset[, default_value ]]) OVER (
+    PARTITION BY expr1, expr2,...
+	ORDER BY expr1 [ASC | DESC], expr2,...
+)
 
 
 # JOINS
@@ -210,6 +276,16 @@ SELECT SUM(order_total) OVER (PARTITION BY customer_id ORDER BY order_date)
 SELECT * FROM table
 CROSS JOIN another_table
 
+LEFT JOIN
+RIGHT JOIN
+INNER JOIN
+
+
+# UNION
+## must be same data type
+## column order is what matters
+## removes dups
+## UNION ALL leaves dups
 
 # COALESCE 
 ## get rid of null values, will select the first non-null value
@@ -245,12 +321,15 @@ WITH RECURSIVE cte_name AS (
 
 # STORED PROCEDURES
 ## good for table manipulation
+## supports transactions. does not return anything like UDF. 
 CREATE OR REPLACE PROCEDURE insert_employee(
     p_name VARCHAR,
     p_dept VARCHAR
 )
 LANGUAGE plpsgsql
 AS $$   // denotes start of fn
+DECLARE
+    some_var INT
 BEGIN
     INSERT INTO employees (name, dept)
     VALUES (p_name, p_dept)
@@ -263,6 +342,7 @@ CALL insert_employee("Brian", "Parks")
 # UDF USER DEFINED FUNCTION
 ## doesn't use call, uses select intead
 ## used to execute complex business logic repeatedly
+## doesn't support transactions
 CREATE OR REPLACE FUNCTION average_salary (p_department_id INTEGER)
 RETURNS NUMERIC
 LANGUAGE plpgsql
@@ -293,3 +373,29 @@ ON table_name
     (
     column_name
     );
+
+
+# VIEWS
+CREATE VIEW name AS <query>
+## create view in memory, must be updated manually or programmatically
+CREATE MATERIALIZED VIEW ...
+UPDATE MATERIALIZED VIEW
+
+
+# TRANSACTIONS
+START TRANSACTION;
+OPERATION1;     // remove money from account
+OPERATION2;   // put money in other account
+SAVEPOINT s1;
+OPERATION3;
+
+ROLLBACK    // ends transaction
+ROLBACK TO SAVEPOINT s1;
+
+COMMIT;
+
+
+
+
+
+

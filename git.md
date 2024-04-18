@@ -54,6 +54,9 @@ d3o     select left
 
 
 # WORKTREES
+### add remote master
+git add worktree master
+git add worktree ./path master
 ### new branch
 git add wortree <path (will also be branch/worktree name)>
 Or
