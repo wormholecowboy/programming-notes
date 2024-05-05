@@ -1,5 +1,3 @@
-HEAD refers to a specific branch, not a commit, except when in detached state.
-
 
 
 # HANDY 
@@ -16,9 +14,25 @@ git restore --staged <file>
 ## unmodify a file
 git retore <file>
 
+
+# GITHUB CLI
+github auth login
+
+gh repo create
+gh repo list <user>
+gh repo view <user/repo>
+gh repo delete <repo>
+gh repo edit
+
+gh gist list
+gh gist create --public <file.py>
+gh gist view <gist>
+
+
 # GIT SIGNS
 td      to see old changes hunk
 tb      inline blame
+
 
 # FUGITIVE
 []c     scroll through commits
