@@ -1,7 +1,3 @@
-# Typescript
-
-Created: September 8, 2022 7:59 AM
-Updated: October 1, 2022 11:25 AM
 
 MISC
 
@@ -16,7 +12,9 @@ MISC
     - `type point = number | string`
     - can’t do this with interfaces
     - interfaces are more for objects
-    - Prefer interfaces to types */
+    - Prefer interfaces to types 
+- classes: you can declare and assign fields right in the constructor parameters
+  */
 
 // -BASICS
 
@@ -44,7 +42,10 @@ g = [
 
 // union (var that holds more than one type)
 let id: string | id = 22
-let lockState = "locked" | "unlocked"
+
+// literal types
+// use specific strings as values
+type directions: "North" | "South"
 
 // enum (set of named constants)
 enum Direction1 {
@@ -62,11 +63,65 @@ let h: {id: number} = {id: 2}
 type User = {id: number}
 let h: User = {id: 2}
 
+// custom types
+type Thing = {
+  name: string,
+  id: number
+}
+
 // type assertion (tell the compiler to use a different type) 
 let cid: any = 2;
-let customerID = <number> cid;  // types customerID as number
+let customerID = <number>cid;  // types customerID as number, does not work in tsx!!
 // alternative
 let customerID = cid as number
+let customerId = (cid as string).trim()
+
+// type declartions
+// good for assigning types to things like process.env that are not defined in your file
+declare const process: any;
+// can keep these in sep file
+filename.d.ts
+// or you can just import a lib like @types/node
+
+// type narrowing
+type Square = {
+  size: number,
+};
+
+type Rectangle = {
+  width: number,
+  height: number,
+};
+
+type Shape = Square | Rectangle;
+
+function area(shape: Shape) {
+  if ('size' in shape) {
+    return shape.size * shape.size;
+  }
+  if ('width' in shape) {
+    return shape.width * shape.height;
+  }
+}
+
+// type intersection
+type Person = {
+  name: string,
+};
+
+type Email = {
+  email: string,
+};
+
+type Phone = {
+  phone: string,
+};
+
+type ContactDetails =
+  & Person
+  & Email
+  & Phone;
+
 
 // function
 function addNum(x: number, y: number): number {
@@ -74,18 +129,6 @@ function addNum(x: number, y: number): number {
 } // return type goes after the parenth for params
 // use 'void' for no return
 
-// interface
-interface CoolProps {
-	name?: string
-	id: number
-	readonly age: number
-} // name is optional here and age is not writeable
-
-// interface with function
-interface MathFunc {
-	(x: number, y: number): number
-}
-const add: MathFunc = (x: number, y: number): number => x+y
 
 // classes
 class Person {
@@ -95,6 +138,7 @@ class Person {
 	}
 private id: number // can only be accessed within class
 protected name: string // accessable buy extendable subclasses
+readonly: age: number // readonly
 someOtherProp: boolean
 }
 
@@ -120,11 +164,8 @@ function whatever( { title }: { title?: string})
 // ? makes it optional
 
 
--GENERICS
-
-
+//GENERICS
 // Allows you to define the type later on, creates a placeholder during the definition
-
 // ex. You can create a generic function for making arrays and define the type at runtime
 
 function getArray<T>(items: T[]): T[] {
@@ -133,6 +174,14 @@ function getArray<T>(items: T[]): T[] {
 // type defined inside function call
 const numArray = getArray<number>([1,2,3,4])
 const strArray = getArray<string>(['poop', 'butts']) 
+
+
+// class
+class Thing<T> {
+  private name: T
+}
+
+thingy = new Thing<string>()
 
 
 // -REACT
@@ -155,12 +204,42 @@ const Cool:FC<CoolProps> () => {  // FC is funcion component type
 }
 
 
--INTERFACES
+// INTERFACES
 
-- add a ? at the end of property name to make it optional
-- Can pass the interface to a type like this:
-- 
+// add a ? at the end of property name to make it optional
+// Can pass the interface to a type like this:
+
+// interface
+interface CoolProps {
+	name?: string
+	id: number
+	readonly age: number
+} // name is optional here and age is not writeable
+
+// interface with function
+interface MathFunc {
+	(x: number, y: number): number
+}
+const add: MathFunc = (x: number, y: number): number => x+y
 
 
 
+// USER DEFINED TYPED GUARDS
+// good for production code
+// return definition tells ts if true, shape is a square
+function isSquare(shape: Shape): shape is Square {
+	return 'size' in shape;
+}
 
+// ASSERTION FUNCTIONS
+// good for testing code
+// tells ts that if returns true, value cannot be null
+function assert(condition: unknown, message: string): asserts condition {
+  if (!condition) throw new Error(message);
+}
+
+// tells ts that value must be Date
+function assertDate(value: unknown): asserts value is Date {
+  if (value instanceof Date) return;
+  else throw new TypeError('value is not a Date');
+}

@@ -1,10 +1,5 @@
 # Js - Javascript
 
-Created: January 27, 2022 6:14 PM
-Updated: October 1, 2022 10:04 PM
-
-![Untitled](Js%20-%20Javascript%20baec6f3414044f299d30fed95115e041/Untitled.png)
-
 - Misc Advice
   - In native JavaScript, you can only assign values to variables. You can’t assign variables to reference another variable, even though it looks like you can. In native JavaScript: **a variable can only reference an actual value; it can’t reference another variable**.
     - primitives like string and number are pass by value. They just take the value of a variable and copy that value to the new variable. Changing the 2nd variable WILL NOT change the 1st.
@@ -24,7 +19,7 @@ Updated: October 1, 2022 10:04 PM
 - Use obj if fn has too many params
   - Can also use spread operator on param, then access arguments as an array
 
-oPERATOR PRECEDENCE
+OPERATOR PRECEDENCE
 The AND operator has a higher precedence than the OR operator, meaning the && operator is executed before the || operator
 
 -MODULO
@@ -176,7 +171,7 @@ checks call stack, executes what's there, and adds from event queue if all have 
 - declare let/const outside conditional. assignments inside conditional braces won't carry back outside
 - Accessing variable before declaring: let/const will throw error, var undefined. This is the temporal dead zone. Where variables are in scope, but not yet declared, unreachable.
 
--THIS KEYWORD (weird behavior)
+-LEXICAL THIS KEYWORD (weird behavior)
 
 - **The value of `this` inside a function depends on *how* the function is called, NOT *where* the function is defined. So if you call it outside of the object, it will reference the window, NOT the object.**
 - THIS references whatever object calls it. (execution context)

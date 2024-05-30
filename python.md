@@ -92,6 +92,42 @@ None = Null in Python
 def __init__(self, arg=None)
 ```
 
+# Decorators
+## static properties
+```python
+@property
+def age(self):
+    return self.age
+
+@age.setter
+def age(self new):
+    self.age = new
+
+# OR
+
+age = property(get_age, set_age)
+```
+ 
+## class method
+Does not require an object to be created
+Mostly used to create a factory methods, returns a factory object
+takes in the class first
+```python
+# inside the Person class
+@classmethod
+def person_from_birthyear(cls, birthyear)
+    calc_age = ...
+    return cls(calc_age)
+
+Person.person_from_birthyear(1983)
+```
+
+## static method
+Don't know anything about the class, only deal with parameters that are passed to them.
+Don't modify the class or instance attributes.
+Good for adding utility methods to class.
+
+
 FILES
 
 ```python

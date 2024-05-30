@@ -7,8 +7,11 @@ vars are global by default, designate local with 'local' keyword preceding
 
 
 ## create var
-MY_VAR = 'something'
+MY_VAR='something'
 echo "using $MY_VAR or ${MY_VAR}"
+
+## create array
+my_arr=(1 2 3 "four" 5)
 
 ## assign output to var
 VAR = $(someFunc)   //  older syntax uses `someFunc`
@@ -39,9 +42,11 @@ exit 0  // give your script its own exit code
 ## -gt - greater than
 ## -le - less than or equal to
 ## -ge - greater than or equal to
-## accept input
 
+## accept user input
+```bash
 read -p "PROMPT" VARIABLE
+```
 
 
 best to use quotes around vars and strings in conditional statements 
@@ -77,16 +82,21 @@ esac
 
 # Loops
 ## conditions can contain a command that returns an exit status
-for VAR in $LIST
-do
-    command
-done
+```bash
+    for VAR in $LIST
+    do
+        command
+    done
+```
 
 use "sleep" to pause a script briefly
 
 use "read" to read line by line
+```bash
     while read -r line; do COMMAND; done < input.file
+```
     The -r option passed to read command prevents backslash escapes from being interpreted.
+    use IFS= before read to make sure whitespace is maintained
 
 you can also pipe into a while loop
     grep whatever | while read LINE
@@ -129,6 +139,7 @@ while read FIRST SECOND RESTOFLINE
 [ -u suidfile ]	file 'suidfile' exists and is set-user-ID.	Setting the suid-bit on a file causes execution of that file to be done with the credentials of the owner of the file, not of the executing user.if [ -u executable ]; thenecho "Running program executable as user $(ls -l executable | awk '{ print $3 }')."fi
 [ -w writeablefile ]	file 'writeablefile' exists and is writeable to the script.	if [ -w /dev/hda ]; thengrub-install /dev/hdafi
 [ -x executablefile ]	file 'executablefile' exists and is executable for the script.	Note that the execute permission on a directory means that it's searchable (you can see which files it contains).if [ -x /root ]; thenecho "You can view the contents of the /root directory."fi
+[ -z string/file/array ]  checks if file or string is zero length
 
 
 

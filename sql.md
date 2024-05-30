@@ -105,6 +105,11 @@ UNIQUE(col1, col2)
 INSERT INTO table_name (column1, column2, ...)
 VALUES (value1, value2, ...);
 
+## insert multi new rows
+INSERT INTO table_name (column1, column2, ...)
+VALUES (value1, value2, ...),
+        (value1, value2)
+
 ## update a value
 UPDATE users
 SET email = 'new_email@example.com'
