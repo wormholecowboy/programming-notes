@@ -124,23 +124,31 @@ subject to change).
 # QUICK FIX LIST
 copen
 ccl  clear
+
 ### nav
 cc <number>
 cfirst
 clast
 cnext
 cprev
+
 ### navigate quick fix lists (last 10)
 colder
 cnewer
+
 ### seach folder recursively
 vim /pattern/ src/**
+
+### cfdo applies changes to all files in qf list, cdo applies to all entries (lines)
 ### search and replace and save all buffers (global variable rename)
 cdo %s/pattern/replace/g | update
+
 ### close all files
 cfdo bd
+
 ### save quick fix list
 w file.txt
+
 
 
 # LUA

@@ -87,6 +87,7 @@ grep "string" file.txt file2.txt file3.txt
 grep "string" _ // search all files in folder
 grep -rni "string" _ // search all files recursively, case insensitive
 grep -r string . (same thing)
+grep -v string   # invert selection
 
 # FINDING
 
@@ -129,16 +130,11 @@ zip -u archive.zip file.txt     // update or add files
 -m delete the original files
 
 # TARBALL 
-
-tar czvf <tarballFilename.tar.gz> <fileORdir>
-
+tar -czvf tarballFilename.tar.gz fileORdir
 # see inside tarball
-
-tar tzvf <file>
-
+tar -tzvf file
 # extract
-
-tar xzvf <file.tar.gz>
+tar -xzvf file.tar.gz
 
 -c : Creates Archive
 -x : Extract the archive
