@@ -71,15 +71,25 @@ exit 0  # give your script its own exit code
 read -p "Prompt to show the user: " VAR_TO_STORE_ANSWER_IN
 
 
+# PARAMETER EXPANSION
+${var_to_check_for:-"default to use instead"}  # set default check
+${parameter:=other_var}  # use other var
+${parameter:?"not set"}  # send to stderr
+${parameter:+other_var}  # if null, don't sub. if not null, sub
+echo ${string:7:2}  # echo 7th position plus 2 char forward (offset)
+echo ${string:-7:-2}  # indices from end of array
+echo ${array[@]:7:2}  # echo elements from an array range
+
+
 ## REDIRECTs
 ls > file.txt # redirect stdout
 read LINE < file.txt # redirect stdin (read takes in input from file instead of somehwere else, read only reads one line)
 # use pipe when you want to redirect stdin from a command, and < for from a file. 
 
 
-# Conditionals
+# CONDITIONALS
 # best to use quotes around vars and strings in conditional statements 
-if [[ condition ]]
+if [[ condition && otherCondition ]]
 then
     command
 elif
@@ -88,18 +98,21 @@ else
     command
 fi
 
-# To use && and || with if statements, you need multiple pairs of square brackets:
-read age
-if [[ "$name" == "Steve" ]] && [[ "$age" -eq 15 ]]
-then
+# to eval the exit code of a command
+if ls &> /dev/null; then  # dev/null kills output to screen. if ! ls; for inversion
+  break
 fi
+# do the same but store in a var too
+output=$(make mytarget)
+status=$?
 
+if [ $status -ne 0 ]; then
+  echo "Build failed"
+  echo "Command output was: $output"
+fi
+ 
 
-# to increment
-((INDEX++))
-
-
-# Case
+# CASE / SWITCH
 case "$VAR" in
     val)
         command
@@ -215,6 +228,10 @@ let NUM='1 + 2'
 let NUM++
 # or expr
 
+# to increment
+((INDEX++))
+
+
 
 # LOGGING
 # syslog is a Linux standard that integrates with any app
@@ -314,8 +331,31 @@ cut -d, -f 3  # specify delimiter
 
 # AWK
 # field spearator is whitespace by default, good for trimming
+# iterates over file one line at a time
 # also good for multi-char separator
+# separate commands with ;
 awk -F  # field delimiter
 awk -F ',' '{print $1 "some string" $3'}  # prints fields 1 and 2
 # can also do the above by setting the OFS (output field separator)
 # {print $NF} prints the last field, can use math to do offsets
+
+# print current line completely
+awk '{print $0}'
+
+# conditionals/ternary
+awk '{print ($1=="thing" ? "thing" : "otherthing")}'
+awk '(NR==1){print "this is line one: "$0} (NR==2){print "this is line 2: "$0}'
+# parenth optional
+awk 'NR==1{print "this is line one: "$0} NR==2{print "this is line 2: "$0}'
+# print lines greater than 3
+awk 'NR>3{print}'
+# regex (ends in e)
+awk '($0 ~ /e$/){print}' file.txt
+# same but simpler
+awk '/e$/' file.txt
+
+# NR
+# number of records, kinda like getting array.length
+# can also be used to refer to specific lines in a conditional: NR==1
+
+# use printf for more formatting

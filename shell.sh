@@ -1,7 +1,5 @@
 # Zsh | CLI
 
-## cd
-
 uniq
 cal
 date
@@ -47,12 +45,6 @@ spctl --status
 
 Ctrl Z and fg for minimizing and returning
 
-### Editing
-
-- `Ctrl U` - Clear the entire line
-- `Ctrl K` - Clear line *after* the cursor
-- `Ctrl W` - Clear the word *before* the cursor
-- `Ctrl R` - History
 
 #DELETING
 delete something recursively: find . -name ".DS_Store" -type f -delete
@@ -182,46 +174,33 @@ PROMPT='%B%F{blue}%4~ $ %f%b'. #color, takes 256 xterm color codes
 
 # MACOS
 
-faster hide dock:
+# faster hide dock:
 defaults write com.apple.dock autohide-delay -float 0; defaults write com.apple.dock autohide-time-modifier -int 0;killall Dock
 
-𝗖𝗵𝗮𝗻𝗴𝗲 𝗦𝗰𝗿𝗲𝗲𝗻𝘀𝗵𝗼𝘁 𝗗𝗲𝗳𝗮𝘂𝗹𝘁 𝘁𝗼 𝗝𝗣𝗚 (replace with png to undo):
+# 𝗖𝗵𝗮𝗻𝗴𝗲 𝗦𝗰𝗿𝗲𝗲𝗻𝘀𝗵𝗼𝘁 𝗗𝗲𝗳𝗮𝘂𝗹𝘁 𝘁𝗼 𝗝𝗣𝗚 (replace with png to undo):
 defaults write com.apple.screencapture type jpg
 
-Dock: Hidden apps are transluscent:
+# Dock: Hidden apps are transluscent:
 defaults write com.apple.Dock showhidden -bool TRUE && killall Dock
 
 
-# SED
+# XARGS
+# trims white space; takes output of command and makes it arg for next command
+# echos by default with no arg
+ls | xargs man
 
-sed 's/searchText/replaceText/flags' file.txt
+# put stdin into a var
+ls | xargs -I {} echo "/random/path/{}"  # {} is arbitrary
 
-## flags
-i   case insensitive
-g   all line occurences
-1-9 pick the exact occurence
-w   creates a file of only changed items
 
-## edit in place and create backup
-sed -i.bak 'patterns' file.txt
+# JQ
+# select a field or subfield
+cat file | jq '.field.nested_field'
 
-## can use any delimiter
-sed 's#serach#replace#gi' file.txt
 
-## delete a specific line
-sed '/searchPatter/d' file.txt
 
-## combine multi commands with ;
-sed '/search/d ; otherSearch/d' file.txt
-OR
-sed -e 'command1' -e 'command2' file.txt
 
-## replace only specific line
-sed '3 s/search/replace' file.txt
 
-## range
-sed '1,32 s/search/replace' file.txt
 
-## replace lines containing certain pattern
-### also works with range
-sed '/containingPatter/ s/search/replace' file.txt
+
+
