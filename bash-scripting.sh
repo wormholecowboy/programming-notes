@@ -1,17 +1,51 @@
-# MISC
-# shebangs
 #!/bin/zsh
 #!/usr/bin/python
+set -euo pipefail
+# -e exit on any error
+# -u exit on unset var
+# -o pipefail exit on pipefail
+# good to have at the top of your scripT
 
+# MISC
 # vars are global by default, designate local with 'local' keyword preceding, use -n to make it a pointer to arg passed in
 # Single quotes for literal. Double quotes for var expansion.
 # use "sleep" to pause a script briefly
 # favor printf over echo, has better formatting and allows escape chars
+#
 [:] # for an infinite loop
 # & tells bash to run the preceding command in the bg
 # !! runs last command
 # !v runs last command that started with "v"
 # !$ expands to the last file used in command
+#
+# use your commands right in if statement to check for exit code
+basename # strips dir
+dirname # strips file
+
+source ./file.sh
+. ./file.sh
+./file.sh  # this runs in a subshell, others do not
+
+## create array
+my_arr=(1 2 3 "four" 5)
+## print array length
+echo ${#my_arr[@]}
+
+# There are some useful built-in variables, like:
+echo "Last program's return value: $?"
+echo "Script's PID: $$"
+echo "Number of arguments passed to script: $#"
+echo "All arguments passed to script: $@"
+echo "Script's arguments separated into different variables: $1 $2..."
+
+
+# TEMP FILE
+tempfile=$(mktemp)
+## explicit cleanup
+trap "rm -f $tempfile" EXIT
+## temp dir
+tempdir=$(mktemp -d)
+
 
 # FILE DESCRIPTORS
 # a file descriptor is a number that represents an open file or resource; like pointers to sources of data
@@ -26,54 +60,35 @@ head file.txt &> file2.txt  # redir stderr and stdin
 head file.txt |& command # redir stnin and stderr through pipe  
 head file.txt 2>&1  # redir stderr into stdout  
 
-basename # strips dir
-dirname # strips file
-
-## create var
-MY_VAR='something'
-echo "using $MY_VAR or ${MY_VAR}s"
-
-## assign output to var
-VAR = $(someFunc)   # older syntax uses `someFunc`
-
-## create array
-my_arr=(1 2 3 "four" 5)
 
 
-arguments are $1 $2 $3 etc.
-list of arguments is $@
-
-# There are some useful built-in variables, like:
-echo "Last program's return value: $?"
-echo "Script's PID: $$"
-echo "Number of arguments passed to script: $#"
-echo "All arguments passed to script: $@"
-echo "Script's arguments separated into different variables: $1 $2..."
-
+# SHORT CIRCUITING
 command && command   # 2nd command only runs if 1st does
 command || command   # 2nd command runs if 1st fails, doesn't run if it succeeds
 command ; command    # sep commands
-
-$?  # gives you return code of prev command
+command & command    # 2nd comm does not wait for the first to finish
 
 exit 0  # give your script its own exit code
 
 # COMPARISON
-# compare strings with = and !=
+# compare strings with == and !=
 # There are other comparison operators for numbers listed below:
+# make sure to leave spaces in brackets
 ## -ne - not equal
 ## -lt - less than
 ## -gt - greater than
 ## -le - less than or equal to
 ## -ge - greater than or equal to
 
+
 ## accept user input
 read -p "Prompt to show the user: " VAR_TO_STORE_ANSWER_IN
 
 
 # PARAMETER EXPANSION
-${var_to_check_for:-"default to use instead"}  # set default check
-${parameter:=other_var}  # use other var
+echo ${#var}  # length of var
+${var_to_check_for:-"default to use instead"}  # use default if empty, does not assign
+${parameter:="string or var"}  # assign new value if empty
 ${parameter:?"not set"}  # send to stderr
 ${parameter:+other_var}  # if null, don't sub. if not null, sub
 echo ${string:7:2}  # echo 7th position plus 2 char forward (offset)
@@ -89,14 +104,15 @@ read LINE < file.txt # redirect stdin (read takes in input from file instead of 
 
 # CONDITIONALS
 # best to use quotes around vars and strings in conditional statements 
-if [[ condition && otherCondition ]]
-then
-    command
-elif
-    command
+if [[ condition ]] && [[ otherCondition ]] || [[ thirdCondition ]]; then
+# can als us [[ condition -a otherCondition ]] for and; -o for or
+    command;
 else
-    command
+    command;
 fi
+
+# alt conditional
+[[ -z "$EDITOR" && EDITOR=nvim ]]
 
 # to eval the exit code of a command
 if ls &> /dev/null; then  # dev/null kills output to screen. if ! ls; for inversion
@@ -130,16 +146,38 @@ esac
 # LOOPS
 ## conditions can contain a command that returns an exit status
 ## for loop
-    for VAR in $LIST
-    do
+    for VAR in $LIST; do
         command
     done
+
+    for item in $my_arr[@]; do
+      command
+    done
+## c style
+for ((i=0; i<0; i++)); do
+  echo "$i"
+done
+## range
+for i in {1..10}; do
+  echo "$i"
+done
+## pattern matching
+for item in ./things/*.md; do
+  echo "$item"
+## command sub
+for item in $(ls); do
+  echo "$item"
+done
 
 # while loop
 #use "read" to read line by line
     while read -r line; do COMMAND; done < input.file
     # The -r option passed to read command prevents backslash escapes from being interpreted.
     # use IFS= before read to make sure whitespace is maintained
+
+while [[ $counter -lt 5 ]]; do
+  echo "$counter"
+done
 
 # you can also pipe into a while loop
 # WARNING: this creates a sub shell
