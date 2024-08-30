@@ -60,11 +60,11 @@ DROP TABLE <name>
 TRUNCATE table_name
 
 CREATE TABLE orders (
-    order_id SERIAL PRIMARY KEY,  // increments on creation
+    order_id SERIAL PRIMARY KEY,  -- increments on creation
     order_date DATE DEFAULT CURRENT_DATE,
     total_amount DECIMAL(10, 2) DEFAULT 0.00,
-    customer_id INT CHECK (customer_id > 0)     // check a constraint
-    customer_id CONSTRANT constraint_name INT CHECK (customer_id > 0)     // named constraint
+    customer_id INT CHECK (customer_id > 0)     -- check a constraint
+    customer_id CONSTRANT constraint_name INT CHECK (customer_id > 0)     -- named constraint
 );
 
 -- foreign keys
@@ -112,7 +112,8 @@ VALUES (value1, value2, ...),
 
 -- update a value
 UPDATE users
-SET email = 'new_email@example.com'
+SET email = 'new_email@example.com',
+    other_thing = 'thing'
 WHERE user_id = 123;
 
 -- delete a row
@@ -149,9 +150,9 @@ SELECT CURRENT_TIMESTAMP
 SELECT TIMESTAMP WITH TIME ZONE "2024-01-01 03:03:00-04"
 
 -- truncate date
-DATE_TRUN("month", DATE "04-03-2024")  // truncates to 1st of month
-DATE_TRUN("year", DATE "04-03-2024")  // truncates to 1st of year
-DATE_TRUN("hour", TIMESTAMP "04-03-2024 04:03:00")  // truncates to start of hour
+DATE_TRUN("month", DATE "04-03-2024")  -- truncates to 1st of month
+DATE_TRUN("year", DATE "04-03-2024")  -- truncates to 1st of year
+DATE_TRUN("hour", TIMESTAMP "04-03-2024 04:03:00")  -- truncates to start of hour
 
 -- find diff between dates
 AGE(DATE "04-01-2024", DATE "03-01-2024")
@@ -173,11 +174,11 @@ SELECT date_column + 1
 
 
 -- TIMEZONES
-SELECT current_setting("timezone")  // returns setting for db
+SELECT current_setting("timezone")  -- returns setting for db
 
 -- timestamp data type
-column_name timestamp   // no conversion
-column_name timestamptz  // will convert to db's time zone if passed utc offset
+column_name timestamp   -- no conversion
+column_name timestamptz  -- will convert to db's time zone if passed utc offset
 INSERT INTO Column_name ("2023-01-01 15:30:00 -0700")
 
 -- convert timezones
@@ -187,7 +188,7 @@ timzone("American/Denver", column_name)
 
 
 -- ENUMS
-CREATE TYPE name AS ENUM("values", "more values")   // order is respected
+CREATE TYPE name AS ENUM("values", "more values")   -- order is respected
  
 
 -- GROUPING
@@ -200,7 +201,7 @@ SELECT
 FROM table
 GROUP BY
 ROLLUP(
-   col1, col2, col3   // col1 will have highest priority
+   col1, col2, col3   -- col1 will have highest priority
 )
 ORDER BY 1,2,3
 
@@ -214,7 +215,7 @@ VALUES (array[1,2,3,4])
 
 -- select
 WHERE 2 = ANY(column_name)  returns any array that has a 2
-WHERE array[2, 4, 8]::INTEGER[] = array_column      // look for specific array
+WHERE array[2, 4, 8]::INTEGER[] = array_column      -- look for specific array
 
 -- unnest (explode out array)
 SELECT id, unnest(array_column)
@@ -222,32 +223,30 @@ SELECT id, unnest(array_column)
 
 -- RANGE (end excluded)
 -- date type ex
-numrange    // numeric
-int4range   // integer
+numrange    -- numeric
+int4range   -- integer
 
 -- insert
 VALUES (NUMRANGE(100, 200), INT4RANGE(200, 500))
 
 -- select
-WHERE salary @> 150     // 150 is within the range
+WHERE salary @> 150     -- 150 is within the range
 
 
 -- NESTED DATA (map, dict)
-column_name JSONB
-
--- insert as json blob
-
--- select
-select column_name->>'street' AS 'street address'
-
--- create index to cut down query time
-CREATE INDEX index_name ON table_name ((column_name->>"street"))
--- select
-WHERE address->>"city] = "New York"
--- update
-UPDATE table
-SET address = jsonb_set(address, '{city}', '"Los Angeles"') 
-WHERE name = 'John'
+-- column_name JSONB
+INSERT INTO users (name, details)
+VALUES (
+    'John Doe',
+    JSON_OBJECT(
+        'address', JSON_OBJECT(
+            'street', '123 Main St',
+            'city', 'Anytown',
+            'state', 'CA'
+        ),
+        'phones', JSON_ARRAY('123-456-7890', '987-654-3210')
+    )
+);
 
 
 -- WINDOW FUNCTIONS
@@ -332,7 +331,7 @@ CREATE OR REPLACE PROCEDURE insert_employee(
     p_dept VARCHAR
 )
 LANGUAGE plpsgsql
-AS $$   // denotes start of fn
+AS $$   -- denotes start of fn
 DECLARE
     some_var INT
 BEGIN
@@ -389,12 +388,12 @@ UPDATE MATERIALIZED VIEW
 
 -- TRANSACTIONS
 START TRANSACTION;
-OPERATION1;     // remove money from account
-OPERATION2;   // put money in other account
+OPERATION1;     -- remove money from account
+OPERATION2;   -- put money in other account
 SAVEPOINT s1;
 OPERATION3;
 
-ROLLBACK    // ends transaction
+ROLLBACK    -- ends transaction
 ROLBACK TO SAVEPOINT s1;
 
 COMMIT;

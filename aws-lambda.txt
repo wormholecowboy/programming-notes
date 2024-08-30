@@ -1,13 +1,7 @@
 MISC
-
 - Layers: allow you to create dependencies b/w the functions
-- Applications: tie in with other services for ease of config
-- Use Cloudwatch to view logs -- logs >> log groups 
-    - use insights to view many logs at once, check pre-definied queries on right
-- EC2's stay spun up for 30-60 minutes until they are not needed
 - Lambda charges for duration of runtime for FNs
     - if calling other lambdas, you may want to use async, otherwise first lambda will wait for response and double bill you
-
 
 FUNCTIONS 
 - Runtime settings must have correct filename:functionname (ex. lambda_function:lambda_handler)

@@ -161,6 +161,8 @@ class User {
 
 let user2 = new User("Bob", { age: 10, number: 5555703829 });
 
+
+
 // SINGLETON
 //
 class GlobalState {
@@ -176,6 +178,8 @@ const state = new GlobalState();
 Object.freeze(state);
 // export the instance, not the class
 
+
+
 // PROTOTYPE
 
 let obj;
@@ -184,6 +188,8 @@ let obj2 = Object.create(obj);
 // access prototype of object
 Object.getPrototypeOf(obj2); // obj
 // note: classes' prototype refers to the constructor
+
+
 
 // NULL OBJECT
 // Reduces the need for null checks. Return a null object from your fns instead of returning null. Null object properties should match expected object.
@@ -212,6 +218,8 @@ function printUser(id) {
   const user = getUser(id);
   console.log(user);
 } // no need for null checks here.
+
+
 
 // FACADE
 // hides ugly code in its own fn or module

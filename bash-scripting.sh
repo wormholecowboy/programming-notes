@@ -359,7 +359,7 @@ cut -c 4- file.txt
 cut -c -4 file.txt  # displays first four char
 cut -c 1,3,5 file.txt
 
-# -f is for tabs
+# -f is for tabs/fields
 cut -f 3  # selects 3rd field
 cut -f 1,3  # selects 1st and 3rd field
 cut -d ',' -f 3  # specify delimiter

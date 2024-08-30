@@ -2,6 +2,8 @@
 
 # MISC
 ternary commands work in tf
+terraform state list
+
 
 
 # COMMANDS
@@ -12,7 +14,7 @@ terraform plan
 ### deploy
 terraform apply
 terraform destroy
-
+terraform destroy -target <resource_type>.<name>
 
 # VARIABLES
 variable "someVar" {

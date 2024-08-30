@@ -1,24 +1,10 @@
-# Zsh | CLI
 
-uniq
-cal
-date
-hash    list all commands
-!! Repeat last command
-| column 
+hash  #  list all commands
+!! # Repeat last command
 
 ps -ef   list all processes
 lsof   list open files and ports
-   -i:22   specify port 22
-
-remove dir: rd
-create and goto dir: mkcd something/somethingelse/somethingdeeper
-word count: wc
-unique lines: uniq (must be adjacent doubles)
-
-history: then use !<line#>
-
-> is an alternative to touch
+#   -i:22   specify port 22
 
 
 ### Disk space
@@ -33,21 +19,10 @@ sudo spctl --master-enable
 sudo spctl --master-disable
 spctl --status
 
-### Navigation
-
-- `Ctrl A` - Jump to the *start* of the line
-- `Ctrl E` - Jump to the *end* of the line
-- ^ this also accepts suggested text
-- `Ctrl F` - Jump *forward* one character
-- `Ctrl B` - Jump *backward* one character
-- `Alt F` - Jump *forward* one word
-- `Alt B` - Jump *backward* one word
-
-Ctrl Z and fg for minimizing and returning
-
 
 #DELETING
-delete something recursively: find . -name ".DS_Store" -type f -delete
+#delete something recursively: 
+find . -name ".DS_Store" -type f -delete
 
 # reusing commands and arguments
 !:0 = the name of command executed.
@@ -76,9 +51,8 @@ echo "whatever" >> file.txt <!-- # will append -->
 grep "string" file.txt
 grep "string \*" file.txt <!-- # use RegEx to search all -->
 grep "string" file.txt file2.txt file3.txt
-grep "string" _ // search all files in folder
-grep -rni "string" _ // search all files recursively, case insensitive
-grep -r string . (same thing)
+grep "string" . // search all files in folder
+grep -rni "string" . // search all files recursively, case insensitive
 grep -v string   # invert selection
 
 # FINDING
