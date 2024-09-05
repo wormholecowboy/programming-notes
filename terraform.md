@@ -1,5 +1,3 @@
-
-
 # MISC
 ternary commands work in tf
 terraform state list
@@ -9,12 +7,25 @@ terraform state list
 # COMMANDS
 ### run when you clone down
 terraform init
+
 ### kind of like git status
 terraform plan
+
 ### deploy
 terraform apply
 terraform destroy
 terraform destroy -target <resource_type>.<name>
+
+### format and validate
+terraform fmt
+terraform validate
+
+### get info on state
+terraform show  // get all state
+terraform state list  // list each resource in state
+terraform state show aws_security_group.allow_my_ip   // show a specific resource
+
+
 
 # VARIABLES
 variable "someVar" {

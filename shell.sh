@@ -7,17 +7,17 @@ lsof   list open files and ports
 #   -i:22   specify port 22
 
 
-### Disk space
-
-d -h   human readable
-d -h --summarize   (max depth 0)
-d -d 2   (max depth 2)
+# Disk space
+### Summarize usage for a file and folders recursively
+du -sh .
+du -h .  # see each files usage
+du -sh .[!.]* *  # include hidden files
 
 ### Security
 
 sudo spctl --master-enable
 sudo spctl --master-disable
-spctl --status
+sudo spctl --status
 
 
 #DELETING
@@ -25,15 +25,15 @@ spctl --status
 find . -name ".DS_Store" -type f -delete
 
 # reusing commands and arguments
-!:0 = the name of command executed.
-!:1 = the first parameter of the previous command
-!:4 = the fourth parameter of the previous command
-!:* = all of the parameters of the previous command
-!^ = the first parameter of the previous command (same as !:1)
-!$ = the final parameter of the previous command
-!:-3 = all parameters in range 0-3 (inclusive)
-!:2-5 = all parameters in range 2-5 (inclusive)
-!! = the previous command line
+! :0 # the name of command executed.
+! :1 # the first parameter of the previous command
+! :4 # the fourth parameter of the previous command
+! :* # all of the parameters of the previous command
+! ^ # the first parameter of the previous command (same as !:1)
+! $ # the final parameter of the previous command
+! :-3 # all parameters in range 0-3 (inclusive)
+! :2-5 # all parameters in range 2-5 (inclusive)
+! ! # the previous command line
 
 # peaking into files
 
