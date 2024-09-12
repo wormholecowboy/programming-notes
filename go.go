@@ -2,6 +2,7 @@
 // Strings use double quotes or backticks
 // Return errors from fns is a go idiom
 // all data types are initialized to something, 0 or nil usually
+// arguments are pass by value (makes a copy), except slices, maps and channels
 
 // build tags. Need blank line after.
 //go:build prod || dev 
@@ -66,6 +67,7 @@ intArr3 := [...]int32{1,2,3} // even more concise
 
 // SLICES
 // wrappers around arrays that let you change them
+// slices are copied by ref (they are actually pointers to arrays under the hood)
 var intSlice []int32 = []int32{1,2,3}  // omitting number in brackets gives you a slice
 intSlice = append(intSlice, 4)  // returns a new array at new mem location
 intSlice = append(intSlice, intSlice2...)  // append multiple
@@ -178,4 +180,26 @@ type engine interface {
 
 
 // POINTERS
+// make sure to assign pointer to an address before ref
+var p *int32   // creates pointer, init to nil, no ref yet
+var p *int32 = new(int32)  // points to address with 0 inside
+fmt.Println(*p)  // get the value of the address that p is pointing to (dereferencing the pointer)
+*p = 10  // sets new value at address p is pointing to
+
+var i int32
+p = &i  // assign p the memory address of i
+*p = 1  // value of i is also changed
+
+// pass by ref or value
+var thing1 = [3]float32{1,2,3}
+passByvalue(thing1)
+func passByvalue(param [3]float32) {
+  // param will have a diff mem addr, makes a copy, pass by value
+}
+
+// instead, make the fn take in a pointer
+func passByRef(param *[3]float32) {
+  // param will mutate orig array
+}
+passByRef(&thing1)
 
