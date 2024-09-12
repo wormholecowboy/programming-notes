@@ -13,6 +13,7 @@ import (
   "fmt"
   "errors"
   "strings"
+  "sync"
 )
 
 
@@ -36,22 +37,24 @@ func testFunc(x, y int) (int, int, error) {  // 2nd paren are return vars with t
 }
 
 // SWITCH
-switch{
-case true:
-  //do thing
-  // break is implicit
-case false:
-  // do things
-default:
-  // nothing
-}
+func thingish() {
+  switch{
+  case true:
+    //do thing
+    // break is implicit
+  case false:
+    // do things
+  default:
+    // nothing
+  }
 
-// switch with var
-switch thing {
-case 0:
-  // do thing
-default:
-  // thing
+  // switch with var
+  switch thing {
+  case 0:
+    // do thing
+  default:
+    // thing
+  }
 }
 
 // ARRAY
@@ -68,7 +71,10 @@ intArr3 := [...]int32{1,2,3} // even more concise
 // SLICES
 // wrappers around arrays that let you change them
 // slices are copied by ref (they are actually pointers to arrays under the hood)
+
 var intSlice []int32 = []int32{1,2,3}  // omitting number in brackets gives you a slice
+var results = []string{}  // make an empty slice
+
 intSlice = append(intSlice, 4)  // returns a new array at new mem location
 intSlice = append(intSlice, intSlice2...)  // append multiple
 len(intSlice) // how many members
@@ -202,4 +208,117 @@ func passByRef(param *[3]float32) {
   // param will mutate orig array
 }
 passByRef(&thing1)
+
+
+// GOROUTINES
+
+wg := sync.WaitGroup{}  // a wait group is essentially a counter to keep track of open goroutines
+m := sync.Mutex{}  // mutual exclusion. This prevents race conditions if your called goroutine is modifying the same addr in mem.
+  // will prevent any other goroutine from accessing this piece of data at all
+ 
+func loopOverIds(ids) {
+  for i := 0; i < ids; i++ {
+    wg.Add(1)  // keep track of open goroutines
+    go dbCall(i) // add go kw to create goroutines for each call in loop
+  }
+
+  wg.Wait() // waits for counter to go back down to zero
+}
+
+func dbCall(i int) {
+  // call db
+  m.Lock()  // locks the memory so other threads cannot write to it
+  results = append(results, ids[i])
+  m.Unlock()
+
+  wg.Done()  // tells the wg that this specific task is done
+}
+
+// there is also a read/write mutex
+// has same lock methods, plus read lock methods
+m := sync.RWMutex{}
+
+func save(result string) {
+  m.Lock()  // full lock
+  results = append(results, result)
+  m.Unlock()
+}
+
+func log() {
+  m.RLock()  // Check to see if full lock exists and waits if there is. If not, it will place a read lock on it. 
+    // goroutines can have many read locks at once
+    // allows multiple goroutines to read at the same time
+  fmt.Println(results)
+  m.RUnlock()
+}
+
+
+// CHANNELS
+// allow goroutines to pass around info. holds data, thread safe, listens for changes to data
+// unbuffered channel: a type of channel that does not have any capacity to store values.
+//   When a value is sent to an unbuffered channel, the goroutine will block until another goroutine or main receives the value from the channel. 
+//   Similarly, when a goroutine attempts to receive from an unbuffered channel, it will block until another goroutine sends a value into the channel.
+//   good for syncing between goroutines, acts as handshake
+
+var c = make(chan int)  // unbuffered channel
+c <- 123  // assign value to channel
+var i = <- c  // pop value out to this var
+
+// ex
+func doThing() {
+  var c = make(chan int)
+  go process(c)
+  fmt.Println(<-c)  // this will wait for goroutine to finish. listens for channel update that happens in procss fn.
+}
+
+func process(c chan int)  {
+  c <-123
+}
+
+// ex with loop
+func doThing2() {
+  var c = make(chan int)
+  go process(c)
+  for i:= range c {
+    fmt.Println(i)
+  }
+}
+
+func process2(c chan int)  {
+  defer close(c)  // this tells any other process using this channel that we are done. Defer runs right at the end of fn.
+  for i:=0; i<5; i++ {
+    c <-i
+  }
+}
+
+// ex with buffered channel
+func doThing2() {
+  var c = make(chan int, 5)
+  go process(c)
+  for i:= range c {
+    fmt.Println(i)
+  }
+}
+
+func process2(c chan int)  {
+  defer close(c)  // this tells any other process using this channel that we are done. Defer runs right at the end of fn.
+  for i:=0; i<5; i++ {
+    c <-i
+  }
+}
+
+// SELECT
+// like an if statement for channels
+
+func whatever(chan1 chan string, chan2 chan string) {
+  select{  // listens for whatever channel updates first and runs that case
+  case myVar := <-chan1:
+    // do a thing
+  case myVar := <-chan2:
+    // do a thing
+  }
+}
+
+
+// GENERICS
 
