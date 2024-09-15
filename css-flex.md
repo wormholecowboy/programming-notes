@@ -34,9 +34,9 @@
 .item {
 
 		order: ; /* use pos and neg numbers to shift items back and forth */
-		flex-grow: 1; /* grows items relative to each other ex. 2 is 2x the size of others */
-		flex-shrink: 1; 
-		flex-basis: 100; /* basically works like min-width as you scale down, pixels or ems */
+		flex-grow: 1; /* grows relative to the space left. 0 is no grow. */ 
+		flex-shrink: 1; /* use 0 for no shrinking */ 
+		flex-basis: 100; /* use a starting basis for shrinking and growing */
 		flex: grow, shrink, basis; /*shorthand*/
 		align-self: auto | flex-start | flex-end | center | baseline | stretch;
 			/* overrides default alignment */
