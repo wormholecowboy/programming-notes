@@ -15,25 +15,17 @@ MISC
     - class uses a designated dark class
 
 BASICS
-
 `m mt mb ml mr` `mx my`
-
 `padding same`
 
 `bg-white`
-
 `text-black`
-
 `shadow`
-
 `hover:text-white`
 
 -FLEX
-
 `flex flex-col flex-row`
-
 - full height: `h-screen`
-- 
 
 -CUSTOM COLORS
 

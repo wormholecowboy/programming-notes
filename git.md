@@ -14,6 +14,10 @@ git restore --staged <file>
 ## unmodify a file
 git retore <file>
 
+## see commit changes for a file
+git log -p -- filename
+## see only the commit messages for a file
+git log --stat -- filename
 
 # GITHUB CLI
 github auth login
@@ -374,7 +378,7 @@ git bisect start
 ## give bisect a range to work in (not including commit uses the current HEAD position)
 git bisect bad HEAD 
 git bisect good <first commit>
-## bisect will start selecting commits for you. Lable them.
+## bisect will start selecting commits for you. Label them.
 git bisect good <or> bad
 ## reset state
 git bisect reset
