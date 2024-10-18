@@ -7,10 +7,6 @@
 //go:build prod || dev 
 
 
-// FUNCTIONS
-// arguments are pass by value (makes a copy), except slices, maps and channels
-// functions can have named return values
-
 package main
 
 import (
@@ -32,9 +28,10 @@ func main() {
   fmt.Printf("Print a formatted %v", thingy)
 }
 
-func test() string {
-  return "string"
-}
+// FUNCTIONS
+// arguments are pass by value (makes a copy), except slices, maps and channels
+// functions can have named return values
+
 
 func testFunc(x, y int) (int, int, error) {  // 2nd paren are return vars with types
     var err error = errors.New("some error") 
@@ -42,23 +39,28 @@ func testFunc(x, y int) (int, int, error) {  // 2nd paren are return vars with t
       return x+y, x*y, err
     }
     return x + y, x * y, err
+
+  // function literals (anon fns)
+  fmt.Println("Add + double two numbers: ",
+          func(a, b int) int {
+              return (a + b) * 2
+          }(10, 2)) // Called with args 10 and 2
+      // => Add + double two numbers: 24
 }
 
-// function literals (anon fns)
-fmt.Println("Add + double two numbers: ",
-        func(a, b int) int {
-            return (a + b) * 2
-        }(10, 2)) // Called with args 10 and 2
-    // => Add + double two numbers: 24
 
 // variadic parameters
 func learnVariadicParams(myStrings ...any) { // ... accepts 0 or more params. any is an alias for interface{}
+  // turns params into a slice
     // Iterate each value of the variadic, which is a slice
     for _, param := range myStrings {
         fmt.Println("param:", param)
     }
     // Pass variadic value as a variadic parameter.
-    fmt.Println("params:", fmt.Sprintln(myStrings...))  // ... unpacks the myStrings slice
+    fmt.Println("params:", fmt.Sprintln(myStrings...))  // ... unpacks the myStrings slice into individual params
+}
+func someThing(firstPositionalParm, moreParams ...string) {
+  // takes in any number of strings after first param
 }
 
 
@@ -239,6 +241,13 @@ func (e *gasEngine) changeGallons() uint8 {
 type someOtherGasEngine struct {
   extraThingINeed string
   ge gasEngine  // ge alias is optional. Without, its an anonymous struct and no need for ge or anything in dot syntax. Can access nested fields directly on someOtherGasEngine.
+}
+
+// struct tags
+// used by methods like json.marshall
+type thingy struct {
+  field1 string `json:"field_1`
+  field2 string `json:"field_2`
 }
 
 // INTERFACE
