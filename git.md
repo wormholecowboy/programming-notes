@@ -237,8 +237,7 @@ git push origin main -F
 
 ## Rebase can also be used to clean up history
 ## interactive rebase
-git rebase -i HEAD~4
-git rebase -i feature
+git rebase -i main  # from feature
 
 pick <commit>       use this
 fixup <commit>      meld into prev commit and discard message
@@ -254,6 +253,11 @@ git rebase main --interactive
     pick    // show this in history
     squash  // use commit, but meld into previous
     fixup   // ignore commit msg
+
+## ALT USING MERGE
+git merge --squash feature-branch  # from main
+## creates an unstaged change on main
+git commit -m "Your single commit message"
 
 
 # CONFIG
