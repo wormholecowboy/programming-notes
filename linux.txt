@@ -14,4 +14,8 @@ systemctl enable <service>
   stop
 systemctl reboot
 
+# Find log of stdout/stderror for a servce
+sudo journalctl -u seo-bulk-update-api.service -f
+-u specifies service name
+-f follow mode, gets new logs as they come in
  
