@@ -39,6 +39,12 @@ echo "All arguments passed to script: $@"
 echo "Script's arguments separated into different variables: $1 $2..."
 
 
+# FUNCTIONS
+func_name() {
+  git log "$0"
+}
+
+
 # TEMP FILE
 tempfile=$(mktemp)
 ## explicit cleanup
@@ -305,130 +311,6 @@ PS4='+ $BASH_SOURCE : $LINENO : '
 
 ## print non-printable chars
 cat -v script.sh
-
-
-# SED
-sed 's/searchText/replaceText/flags' file.txt
-
-## flags
-i   case insensitive
-g   all line occurences
-1-9 pick the exact occurence
-w   creates a file of only changed items
-e   use multiple commands
-f   use a script file for sed commands
-d   delete
-
-## edit in place and create backup (insensitive)
-sed -i.bak 'patterns' file.txt
-
-## can use any delimiter
-sed 's#serach#replace#gi' file.txt
-
-## delete a specific line
-sed '/searchPatter/d' file.txt
-## delete blank lines
-sed '/^$/d' file
-
-## combine multi commands with ;
-sed '/search/d ; otherSearch/d' file.txt
-OR
-sed -e 'command1' -e 'command2' file.txt
-
-## use a script
-sed -f script.sed file.txt
-
-## replace only specific line
-sed '3 s/search/replace' file.txt
-
-## range
-sed '1,32 s/search/replace' file.txt
-
-## replace lines containing certain pattern
-### also works with range; can use range from one regex to another
-sed '/containingPatter/ s/search/replace' file.txt
-
-
-# CUT
-# cuts out section form each line it receives and displays, extract columns from csv
-# only splits on single char
-
-# -c specifies char in line
-cut -c 4-7 file.txt
-cut -c 4- file.txt
-cut -c -4 file.txt  # displays first four char
-cut -c 1,3,5 file.txt
-
-# -f is for tabs/fields
-cut -f 3  # selects 3rd field
-cut -f 1,3  # selects 1st and 3rd field
-cut -d ',' -f 3  # specify delimiter
-cut -d, -f 3  # specify delimiter
-
-# --output-delimiter
-
-# AWK
-# field spearator is whitespace by default, good for trimming
-# iterates over file one line at a time
-# also good for multi-char separator
-# separate commands with ;
-awk -F  # field delimiter
-awk -F ',' '{print $1 "some string" $3'}  # prints fields 1 and 2
-# can also do the above by setting the OFS (output field separator)
-# {print $NF} prints the last field, can use math to do offsets
-
-# print current line completely
-awk '{print $0}'
-
-# conditionals/ternary
-awk '{print ($1=="thing" ? "thing" : "otherthing")}'
-awk '(NR==1){print "this is line one: "$0} (NR==2){print "this is line 2: "$0}'
-# parenth optional
-awk 'NR==1{print "this is line one: "$0} NR==2{print "this is line 2: "$0}'
-# print lines greater than 3
-awk 'NR>3{print}'
-# regex (ends in e)
-awk '($0 ~ /e$/){print}' file.txt
-# same but simpler
-awk '/e$/' file.txt
-
-# NR
-# number of records, kinda like getting array.length
-# can also be used to refer to specific lines in a conditional: NR==1
-
-# use printf for more formatting
-
-
-# JQ
-jq '.' file  # output whole object
-jq '..' file  # output every iteration of objects
-jq '.field' file  # just that field
-jq '.field' file -r  # text output instead of json
-jq '.user.name' file  # nexted field
-jq '.user.name, .user.id' file  # sel multi fields
-
-# array iteration
-jq '.[]' file  # pull objects out of array
-jq '.[1]' file  # get certain index
-jq '.[1:4]' file  # range
-jq '.[-2:]' file  # last 2 el
-
-jq '.[] | .user, .name' file  # pipe within expression
-jq '.[] | .points = 2' file  # add a field
-jq '{ newVal: .oldVal }' file  # rename field
-jq keys file  # get keys, can use after a pipe too
-
-...       length file
-
-jq '. | map(.title += "thing")'  # remap or append a val
-jq '.[] | select(.id >= 197)'  # filter
-jq 'select(has(.logs))' file  # filter by certain key
-jq 'select(values.a)' file  # select values
-jq 'select(any(contains("something")))'
-jq '.[] | if (.id % 2) then .points = "even" else . end'  # conditional. use "and" and "elif" for more options
-
-
-
 
 
 

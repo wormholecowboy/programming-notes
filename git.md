@@ -7,17 +7,27 @@ git reset
 git rm --cached  
  ##  remove file from hdd too
 git rm -f
+
+## Finding Things
  ## grep for string that changed in commits
 git log -S <string>
-## unstage a file
+ ## print out objects of a commit, tree, object
+git cat-file -p <hash>
+
+### unstage a file
 git restore --staged <file>
-## unmodify a file
+### unmodify a file
 git retore <file>
+### amend last commit
+git commit --amend
+git commit --amend -m "updated message"
 
 ## see commit changes for a file
 git log -p -- filename
 ## see only the commit messages for a file
 git log --stat -- filename
+## see parrents
+ --parents
 
 # GITHUB CLI
 github auth login
@@ -72,21 +82,9 @@ d3o     select left
 
 
 # WORKTREES
-### add remote master
-git add worktree master
-git add worktree ./path master
 ### new branch
-git add wortree <path (will also be branch/worktree name)>
-Or
-git add worktree -b <branch name> <path/worktree name>
-### create new based on another
-git add worktree -b <new branch> <path> <base branch>
-### existing remote
-git add worktree <path/worktree name> <remote branch>
-### throwaway
-git worktree add -d <path>
-### remove
-### -f for force
+git worktree add -b <branch name> <path/worktree name> [ref-branch]
+
 git worktree list
 git worktree remove <path> 
 
@@ -152,6 +150,7 @@ git pull
 git fetch origin
 git merge -s ours --no-commit <local-branch>
 git push --force origin <remote-branch-name>
+git push --force-with-lease   ### only pushes if repo hasn't changed since your last fetch
 
 ## good to clear the cache periodically
 git rm -r -cached . 
@@ -165,6 +164,7 @@ git checkout -t origin/remotebranch
 git checkout -b <newlocalbranch> origin/remotebranch
 
 ## Add remote branch from a local branch
+## Also works to set a local to a current remote
 git checkout <localbranch>
 git push <origin> <localbranch>:<newremotebranch>
 
@@ -268,6 +268,8 @@ git commit -m "Your single commit message"
 
 git config --global user.name "username"
 git config --global user.email "email"
+git config --add -global <any k/v pair>
+   section.key "value"
 
 ### global ignore file
 git config --global core.excludesfile <file>
@@ -282,6 +284,7 @@ git config --list --show-origin
 
 ### See ignore file
 git config --get core.excludesfile
+git config core.excludesfile
 
 ## Set path for ignore
 git config --global core.excludesfile <path>
@@ -359,12 +362,15 @@ git revert <commitToIgnore>
 
 
 # RESET
+Can be used to undo last commit or changes in stage or worktree
+--soft is good if you mess up revert, cherry pick, rebase
+--soft puts last commit into staging
 
 ### removes from staging and preserves working changes
 git reset <fileName>
  ### resets staging to match most recent commit (working dir unaffected)
 git reset
- ### delte all commits after given commit, keeps working changes
+ ### delete all commits after given commit, keeps working changes
 git reset <commit>
 OR
 git reset --soft HEAD~1

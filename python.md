@@ -218,23 +218,21 @@ json.loads() converts a JSON string to a dict (takes a string)
 
 
 # IMPORTS / MODULES
-## absolute
-Let’s assume the following:
+## absolute (starts from proj dir)
 
-package1/module2.py contains a function, function1.
-package2/__init__.py contains a class, class1.
-package2/subpackage1/module5.py contains a function, function2.
-The following are practical examples of absolute imports:
+my_project/
+├── main.py
+├── utils/
+│   ├── __init__.py
+│   ├── helpers.py
 
-from package1 import module1
-from package1.module2 import function1
-from package2 import class1
-from package2.subpackage1.module5 import function2
+### import fn foo
+from utils.helpers import foo, bar
+from utils.helpers import *
 
 ## relative
-from .some_module import some_class
-from ..some_package import some_function
-from . import some_class
+from .helpers import foo
+from ..utils.helpers import foo
 
 
 # REGEX
