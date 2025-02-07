@@ -75,8 +75,8 @@ O   to see changes in tab
 o   to see changes in split
 coo checkout that commit
 
-`merge conflicts (Gvdiffsplit!)`
-`]c      next hunk`
+merge conflicts (Gvdiffsplit!)
+]c      next hunk
 d2o     select right side solution
 d3o     select left
 
@@ -224,11 +224,17 @@ merge branch into the one you're in
 `Make sure to fast forward the one thats behind it after rebasing`
 
 
-rebasing 
+Pick theirs or ours for certain files
+`git checkout --theirs <filepath`
+`git chekcout --ours <filepath`
+Remember to git add and commit
+
+
+### rebasing 
 make sure to git add your files after fixing conflict before continuing
-`git rebase --abort  // if you fuck something up`
-`git rebase --skip   // to skip the other commit`
-`git rebase --continue  // keep going after fixing conflict`
+`git rebase --abort`  // if you fuck something up
+`git rebase --skip`   // to skip the other commit
+`git rebase --continue`  // keep going after fixing conflict
 
 Override the remote repo with local
 push your other branch to the end of the main branch (newest commits)
@@ -249,15 +255,8 @@ git rebase -i main  # from feature
 `edit <commit>       use commit but pause for amending`
 
 
-SQUASHING
-run from feature
-`git rebase main --interactive`
-`    pick    // show this in history`
-`    squash  // use commit, but meld into previous`
-`    fixup   // ignore commit msg`
-
 ALT USING MERGE
-git merge --squash feature-branch  # from main
+`git merge --squash feature-branch`  from main
 creates an unstaged change on main
 `git commit -m "Your single commit message"`
 
@@ -401,7 +400,6 @@ reset state
 
 # REFLOG
 tracks everything HEAD does
-
 `git reflog`
 
 
