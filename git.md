@@ -22,6 +22,8 @@ amend last commit
 `git commit --amend`
 `git commit --amend -m "updated message"`
 
+see commit history for a file
+`git log -- filename`
 see commit changes for a file
 `git log -p -- filename`
 see only the commit messages for a file
@@ -228,6 +230,8 @@ Pick theirs or ours for certain files
 `git checkout --theirs <filepath`
 `git chekcout --ours <filepath`
 Remember to git add and commit
+
+Note: When conflict during rebase, theirs and ours will be swapped, b/c rebase switches to the target base branch under the hood. 
 
 
 ### rebasing 
