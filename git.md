@@ -218,37 +218,14 @@ change from https to ssh
 `git remote set-url origin git@HOST:USERNAME/REPOSITORY.git`
 
 
-# CONFLICTS
-
-merge branch into the one you're in
-`git merge <name>`
-`git merge --no-ff    // create a merge commit even if using ff`
-`Make sure to fast forward the one thats behind it after rebasing`
-
-
-Pick theirs or ours for certain files
-`git checkout --theirs <filepath`
-`git chekcout --ours <filepath`
-Remember to git add and commit
-
-Note: When conflict during rebase, theirs and ours will be swapped, b/c rebase switches to the target base branch under the hood. 
-
-
-### rebasing 
+### REBASING 
 make sure to git add your files after fixing conflict before continuing
+`git rebase main`  // from feature
 `git rebase --abort`  // if you fuck something up
-`git rebase --skip`   // to skip the other commit
-`git rebase --continue`  // keep going after fixing conflict
+`git rebase --skip`   // to skip the commit
+`git rebase --continue`  // keep going after fixing conflict, conflicts will stop replaying feature branch on the commit that is problematic.
 
-Override the remote repo with local
-push your other branch to the end of the main branch (newest commits)
-`git rebase main `
-then switch to main and rebase again to merge the commits into main
-`git rebase <featurebranch>`
-`git push origin main -F`
-
-Rebase can also be used to clean up history
-interactive rebase
+Interactive rebase cleans up history
 git rebase -i main  # from feature
 
 `pick <commit>       use this`
@@ -258,11 +235,27 @@ git rebase -i main  # from feature
 `drop <commit>       discard commit completely`
 `edit <commit>       use commit but pause for amending`
 
-
-ALT USING MERGE
+ALT USING MERGE SQUASH
 `git merge --squash feature-branch`  from main
 creates an unstaged change on main
 `git commit -m "Your single commit message"`
+
+### Rebase Conflict
+Note: When conflict during rebase, theirs and ours will be swapped, b/c rebase switches to the target base branch under the hood. 
+fix conflict
+  can use these commands instead of editing
+  `git checkout --ours filename`  // main
+  `git checkout --theirs filename`  // features
+`git add filename`
+`git rebase --continue`
+if you want to ff merge
+`git merge feature`
+if you need to push up feature
+`git push --force`  WARNING: will overwrite remote branch history
+
+diffs
+`git diff`
+`git diff --ours --theirs file.txt`
 
 
 # CONFIG
@@ -407,3 +400,6 @@ tracks everything HEAD does
 `git reflog`
 
 
+# RERERE
+remember how conflicts where resolved
+`git config rerere.enabled true`
