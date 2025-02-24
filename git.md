@@ -226,7 +226,9 @@ make sure to git add your files after fixing conflict before continuing
 `git rebase --continue`  // keep going after fixing conflict, conflicts will stop replaying feature branch on the commit that is problematic.
 
 Interactive rebase cleans up history
-git rebase -i main  # from feature
+`git rebase -i main`  // from feature
+or 
+`git rebase -r HEAD~n`  if you want to squash down commits in current branch
 
 `pick <commit>       use this`
 `fixup <commit>      meld into prev commit and discard message`
@@ -301,6 +303,7 @@ name your stash to get it later
 `git stash save <name> `
  see what's in your stash, get index
 `git stash list`
+`git stash list -p`  show changes
  applies your stash, leave stash mem alone
 `git stash apply <indexNumber>`
  applies your stash, deletes that stash from mem
@@ -325,17 +328,16 @@ clear it
 
 # RESTORE   unstage , undo working
 
- undo working back to staging state
+Undo working, keep staging
 `git restore .`
  remove from staging
 `git restore --staged <file>`
 `git restore -S <file>`
- WARN discards local changes revert to last commit or stage
+ WARN discards working dir changes, revert to last commit or stage
 `git restore <file>`
- restore file back to staging version (WARNING: will delete your working dir version)
 `git checkout -- <file>`
  restore back to a previous commit
-git restore --source HEAD~3 file
+`git restore --source HEAD~3 file`
 
 
 # CLEAN
@@ -351,13 +353,8 @@ git restore --source HEAD~3 file
 
 
 # REVERT 
-
 REVERT creates a new commit that undoes changes from previous(does not modify history)
-revert undoes commit by creating a new one (copy of previous)
-
- will get rid of current commit
-`git revert HEAD`
-`git revert <commitToIgnore>`
+`git revert <commitHash>`
 
 
 # RESET
@@ -365,6 +362,7 @@ Can be used to undo last commit or changes in stage or worktree
 Destrutive, but can be recovered with reflog
 --soft is good if you mess up revert, cherry pick, rebase
 --soft puts last commit into staging
+--reset defaults to --mixed
 
 removes from staging and preserves working changes
 `git reset <fileName>`
@@ -372,14 +370,17 @@ removes from staging and preserves working changes
 `git reset`
  delete all commits after given commit, keeps working changes
 `git reset <commit>`
-`OR`
-git reset --soft HEAD~1
+
  will also delete working dir changes
 `git reset --hard`
 `git reset --hard <commit>`
 `git checkout HEAD file   // discard for one file only`
 `git checkout -- file    // same`
 
+Command	Effect
+`git reset --soft HEAD^`	Moves HEAD back, keeps changes staged (git add remains intact).
+`git reset --mixed HEAD^` (default)	Moves HEAD back, unstages changes, but keeps them in the working directory.
+`git reset --hard HEAD^`	Moves HEAD back and discards all changes.
 
 
 # BISECT
@@ -403,3 +404,22 @@ tracks everything HEAD does
 # RERERE
 remember how conflicts where resolved
 `git config rerere.enabled true`
+
+
+# CHERRY-PICK
+pull in a commit from another branch w/o everything else
+`git cherry-pick <commitish>`
+`git cherry-pick -n <commitish>`  Don't create a new commit
+`git cherry-pick -3 <commitish>`  Edit the commit message
+`git cherry-pick someBranch`   Grabs the last commit from the tip of someBranch
+
+
+# TAGS
+immutable pointers to commits
+
+list tags
+`git tag`
+create tag on current commit
+`git tag tag_name -m "tag message"`
+
+`git push origin --tags`
