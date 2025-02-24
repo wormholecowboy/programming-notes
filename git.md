@@ -4,9 +4,13 @@
 remove all files from staging, keep working changes
 `git reset`
 keep file but rm from staging
-`git rm --cached  `
+`git rm --cached file`
+`git restore --staged <file>`
+`git reset <file>`
  remove file from hdd too
-`git rm -f`
+`git rm -f <file>`
+unmodify a file
+`git restore <file>`
 
 Finding Things
 grep for string that changed in commits
@@ -14,10 +18,6 @@ grep for string that changed in commits
 print out objects of a commit, tree, object
 `git cat-file -p <hash>`
 
-unstage a file
-`git restore --staged <file>`
-unmodify a file
-`git retore <file>`
 amend last commit
 `git commit --amend`
 `git commit --amend -m "updated message"`
@@ -45,34 +45,29 @@ see parrents
 `gh gist view <gist>`
 
 
-# GIT SIGNS
-`td      to see old changes hunk`
-`tb      inline blame`
-
-
 # FUGITIVE
-`[]c     scroll through commits`
-`Gvdiff  see a diff for current file    `
-`Gvdiff main   see a diff for another branch or commit`
-`Git blame`
-`czz     stash`
-`czA     apply top stash`
-`cza     apply top stash, preserve index`
-`czP     pop`
-`dv      vert diff`
-`dq      quit the vert diff`
-`Shift x to delete a change in unstaged`
+[]c     scroll through commits
+Gvdiff  see a diff for current file    
+Gvdiff main   see a diff for another branch or commit
+Git blame
+czz     stash
+czA     apply top stash
+cza     apply top stash, preserve index
+czP     pop
+dv      vert diff
+dq      quit the vert diff
+Shift x to delete a change in unstaged
 
-`Gvdiffsplit        compare working to last commit`
-`Gvdiffsplit main   to compare changes to main branch`
-`Gvdiffsplit!       keep focus on current window`
-`G difftool -y      see changes for each file in a tab`
-`tabo               get rid of tabs?`
+Gvdiffsplit        compare working to last commit
+Gvdiffsplit main   to compare changes to main branch
+Gvdiffsplit!       keep focus on current window
+G difftool -y      see changes for each file in a tab
+tabo               get rid of tabs?
 
-`Gedit main:file.js      open a file in certain branch`
-`Gread                   same but replaces your current buffer`
+Gedit main:file.js      open a file in certain branch
+Gread                   same but replaces your current buffer
 
-`G log`
+G log
 O   to see changes in tab
 o   to see changes in split
 coo checkout that commit
@@ -133,8 +128,6 @@ config for difftool and mergetool
 6. Click “compare and pull request” green button on github
 opt. add the orig repo as a remote so you can stay in sync with and pull from orig
 `git remote add upstream <URL>`
-
-
 
 
 # MISC
