@@ -1,13 +1,8 @@
-# TailwindCSS
-
-Created: July 30, 2022 8:02 AM
-Updated: October 2, 2022 12:23 PM
 
 MISC
 
 - for custom values in a prop use brackets around prop :`font-size-[23px]`
 - Tailwind uses a fixed division of 16 across the viewport
-- you can create custom classes in index.css
 - use ‘groups’ to tie together behavior from parent and children (doesn’t work with @apply)
     - apply `group` to the parent, `group-hover:text-black` to the child
 - dark mode has 2 options set in config, `media or class`
@@ -48,7 +43,7 @@ theme: {
 
 }
 
-// can also remap standard colors by importing
+// can also remap standard colors by importing and get extra colors as well
 require('tailwindcss/colors')
 ```
 
@@ -64,3 +59,9 @@ require('tailwindcss/colors')
 	}
 }
 ```
+
+## CSS ANIMATIONS
+### good defaults
+relative flex rounded-3xl hover:xl transition-all
+### override
+relative flex rounded-3xl hover:xl transition-all duration-100 ease-in
