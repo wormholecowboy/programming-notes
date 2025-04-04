@@ -110,6 +110,12 @@ INSERT INTO table_name (column1, column2, ...)
 VALUES (value1, value2, ...),
         (value1, value2)
 
+-- handle dup insert
+INSERT INTO clients (domain, ninjacat_id, platform_id) 
+VALUES ('example.com', 123, 1)
+ON DUPLICATE KEY UPDATE ninjacat_id = VALUES(ninjacat_id), platform_id = VALUES(platform_id);
+
+
 -- update a value
 UPDATE users
 SET email = 'new_email@example.com',

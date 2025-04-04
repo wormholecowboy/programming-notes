@@ -1,4 +1,9 @@
-# TODO
+# DIFF
+:windo diffthis      // diff any open buffers
+:windo diffoff      // exit
+do      // apply changes from other file
+dp      // apply changes to other file
+:diff update    // refresh
 
 
 # GLOBAL COMMAND
