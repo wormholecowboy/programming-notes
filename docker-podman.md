@@ -30,6 +30,14 @@ port mapping - bind a local port to the container
 see port info  
 `podman port <port-name>`  
 
+deleteing  
+`podman image prune`  # delete dangling images  
+`podman image prune -a`  # delete any image not tied to a container
+`podman rmi <image-id>` # delete image
+`docker container prune` # delete all stopped containers
+`podman rm <container-id>`
+`docker system prune -a` # delete all unused conatianers and images
+
 
 # BUILDING IMAGES
 `nvim Dockerfile`  # optional name: Containerfile  
