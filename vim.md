@@ -1,3 +1,7 @@
+# MISC
+use `gq` in visual mode to format to textwidth  
+use `!!` in norm mode to print command output into neovim  
+
 # DIFF
 :windo diffthis      // diff any open buffers
 :windo diffoff      // exit
@@ -6,65 +10,70 @@ dp      // apply changes to other file
 :diff update    // refresh
 
 
+# NORM MODE ON COMMAND LINE
+apply macro over range  
+`:norm @w`  
+edit text like normal mode, use <C-f>  
+
 # GLOBAL COMMAND
-g/pattern           // print all lines containing pattern
-g/pattern/command
-g/thing/d           // delete
-g/thing/d _         // delete to blackhole
-g/thing1\|thing2/d   
+`g/pattern`           // print all lines containing pattern  
+`g/pattern/command`  
+`g/thing/d`           // delete  
+`g/thing/d _`         // delete to blackhole  
+`g/thing1\|thing2/d`   
 
-g!/pattern/command  // inverse
-v/pattern/command
+`g!/pattern/command`  // inverse  
+`v/pattern/command`  
 
-g/[0-9]/d       // delete range
-g/0\{3,6\}/d   // delete any line with 3-6 zeros
+`g/[0-9]/d`       // delete range  
+`g/0\{3,6\}/d`   // delete any line with 3-6 zeros   
 
-1,5g/pat/com    // lines
-3,g/pat/com     // end at curr line
-3,$/pat/com     // end of filej
+`1,5g/pat/com`    // lines  
+`3,g/pat/com`     // end at curr line  
+`3,$/pat/com`     // end of file  
 
-. means the current line. A range of .,3 means between the current line and line 3.
-$ means the last line in the file. 3,$ range means between line 3 and the last line.
-+n means n lines after the current line. You can use it with . or without. 3,+1 or 3,.+1 means between line 3 and the line after the current line.
+. means the current line. A range of .,3 means between the current line and line 3.  
+$ means the last line in the file. 3,$ range means between line 3 and the last line.  
++n means n lines after the current line. You can use it with . or without. 3,+1 or 3,.+1 means between line 3 and the line after the current line.  
 
-g/pat/Normal A  // exectute A from normal mode
-g/const/normal @a  // execute macro
+`g/pat/Normal` A  // exectute A from normal mode  
+`g/const/normal` @a  // execute macro  
 
-g/pat1/g/pat2/d  // delete recursively
+`g/pat1/g/pat2/d`  // delete recursively  
 
-g/pattern/t $   // copy all to end of file
-g/pattern/m $   // move
+`g/pattern/t` $   // copy all to end of file  
+`g/pattern/m` $   // move  
 
 
--FIND & REPLACE
-:%s every line
-:s current line
-/g every instance on line
+-FIND & REPLACE  
+:%s every line  
+:s current line  
+/g every instance on line  
 
 # is an alternate delimiter
 
-:%s/findWord/replaceWord/g (remove % for single line)
+:%s/findWord/replaceWord/g (remove % for single line)  
 
 # LAZY NVIM
-Lazy sync // install, clean, update
-Lazy help
-Lazy home
+`Lazy sync` // install, clean, update  
+`Lazy help`  
+`Lazy home`  
 
-Lazy restore [plugin]
-Lazy clean  // get rid of old plugins
-Lazy update [plugin]
+`Lazy restore [plugin]`  
+`Lazy clean`  // get rid of old plugins  
+`Lazy update [plugin]`  
 
-Lazy log [plugin]
-    press r to revert to a commit
-Lazy restore  // revert to lock file (check git for previous versions if needed)
-    or keep a backup file of lock file before updating all plugins
+`Lazy log [plugin]`  
+    press r to revert to a commit  
+`Lazy restore`  // revert to lock file (check git for previous versions if needed)  
+    or keep a backup file of lock file before updating all plugins  
 
 # MACROS
 
-create: `q<register><commands>q`
-execute: `@<reg>`
-check registers: `:reg`
-check specifc reg: `:reg <key>`
+create: `q<register><commands>q`  
+execute: `@<reg>`  
+check registers: `:reg`  
+check specifc reg: `:reg <key>`  
 
 # MARKS
 
@@ -111,8 +120,7 @@ Ctrl-x Ctrl-]   " insert from tags (must have tags)
 Ctrl-x Ctrl-o   " insert from omnicompletion. Filetype specific.
 
 
--SURROUND
-
+# SURROUND
 
 ( = b
 { = B
