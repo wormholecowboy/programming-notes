@@ -24,7 +24,7 @@ terraform validate
 terraform show  // get all state
 terraform state list  // list each resource in state
 terraform state show aws_security_group.allow_my_ip   // show a specific resource
-
+terraform state mv "old_location" "new_location"   // move a resource so tf doesn't destroy it
 
 
 # VARIABLES

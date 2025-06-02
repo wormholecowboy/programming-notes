@@ -7,14 +7,15 @@ lsof   list open files and ports
 #   -i:22   specify port 22
 
 
-# Disk space
+# DISK SPACE
 ### Summarize usage for a file and folders recursively
 du -sh .
 du -h .  # see each files usage
 du -sh .[!.]* *  # include hidden files
 
-### Security
 
+
+### SECURITY
 sudo spctl --master-enable
 sudo spctl --master-disable
 sudo spctl --status
@@ -24,6 +25,9 @@ sudo spctl --status
 #delete something recursively: 
 find . -name ".DS_Store" -type f -delete
 
+
+
+# MISC
 # reusing commands and arguments
 ! :0 # the name of command executed.
 ! :1 # the first parameter of the previous command
@@ -46,8 +50,9 @@ head -n 5 file.txt # get only 5 lines
 echo "whatever" > file.txt <!-- # will overwrite -->
 echo "whatever" >> file.txt <!-- # will append -->
 
-# GREP
 
+
+# GREP
 grep "string" file.txt
 grep "string \*" file.txt <!-- # use RegEx to search all -->
 grep "string" file.txt file2.txt file3.txt
@@ -55,8 +60,9 @@ grep "string" . // search all files in folder
 grep -rni "string" . // search all files recursively, case insensitive
 grep -v string   # invert selection
 
-# FINDING
 
+
+# FINDING
 find <dir> -iname <file> This will be case insensitive
 find . -name "file.txt"
 find . -empty <!-- # find empty files -->
@@ -65,28 +71,29 @@ find . -iname "*usingwildcards*"
 -type f searches only files
 find ~ \( -iname '*jpeg' -o -iname '*jpg' \) using the OR flag -o
 
-# CREATE many files
 
+
+# CREATE many files
 touch file-{001..100}.txt
 
-# ADD TO PATH
 
+
+# ADD TO PATH
 for users, add to rc file
 for system-wide, edit /etc/profile
 export PATH="$PATH:/opt/example/bin"
 
+
+
 # SYMLINK
-
 ln -s ~/PathToLinkTO pathNickname #run this in the dir where you want the symlink
-
 # remove symlink
-
 rm symlinkNickname
-
 # see current symlinks
-
 find . -type l -ls
 find . -maxdepth 1 -type l -ls # current dir only
+
+
 
 # ZIP
 zip zippedfile.zip thing-to-zip.txt         // can also add files this way
@@ -95,7 +102,10 @@ zip -d archive.zip file-to-delete.txt
 zip -u archive.zip file.txt     // update or add files
 -m delete the original files
 
+
+
 # TARBALL 
+# create
 tar -czvf tarballFilename.tar.gz fileORdir
 # see inside tarball
 tar -tzvf file
@@ -122,13 +132,15 @@ example
 tar -C /opt -xzf example.tar.gz 
 unzip file.zip -d destination_folder
 
-# CHECK SCRIPTS BEFORE YOU DOWNLOAD THEM
 
+
+# CHECK SCRIPTS BEFORE YOU DOWNLOAD THEM
 wget [https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh](https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)
 sh [install.sh](http://install.sh/)
 
-# CHANGE PROMPT
 
+
+# CHANGE PROMPT
 # this only works for zsh?
 PROMPT='%4~ $' # Shows 4 levels of subfolders and a $
 PROMPT='%B%4~ $ %b' # Bold
@@ -140,13 +152,16 @@ PROMPT='%B%F{blue}%4~ $ %f%b'. #color, takes 256 xterm color codes
 `prompt_context() {}` (at the end of the .zshrc)
 
 
+
 # STOW
 
 - real files site inside a package (named dir)
 - package sits inside your stow dir (like .dotfiles, that’s a stow dir)
 - from stow dir, run `stow packageName` to create a stow with whatever inside your package
 
-# MACOS
+
+
+# MACOS / APPLE
 
 # faster hide dock:
 defaults write com.apple.dock autohide-delay -float 0; defaults write com.apple.dock autohide-time-modifier -int 0;killall Dock
@@ -156,6 +171,7 @@ defaults write com.apple.screencapture type jpg
 
 # Dock: Hidden apps are transluscent:
 defaults write com.apple.Dock showhidden -bool TRUE && killall Dock
+
 
 
 # XARGS
@@ -172,9 +188,22 @@ ls | xargs -I {} echo "/random/path/{}"  # {} is arbitrary
 cat file | jq '.field.nested_field'
 
 
+# RSYNC
+rsync -aHAX wholedir dest/
+rsync -aHAX contentsOfDir/ dest/
 
+-a: archive mode (recursive + preserve permissions, timestamps, symlinks, etc.)
+-v: verbose
+-h: human-readable file sizes
+-z: enable compression during transfer
+--include='*.jpg'
+--exclude='node_modules/'
 
+# mirror - delete files in dest
+rsync -avh --delete /src/ /dest/
 
+# dry run
+rsync -avh --dry-run /src/ /dst/
 
 
 
