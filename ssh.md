@@ -1,13 +1,18 @@
 START SSH AGENT
-eval $(ssh-agent)
+`eval $(ssh-agent)`
 OR
-eval `ssh-agent -s`
+`eval `ssh-agent -s`
+
+CLEAR CURRENT KEYS
+`ssh-add -D`
+
+LIST CURRENT ADDED
+`ssh-add -ld`
 
 
 GENERATE
-ssh-keygen -t rsa -C "your.email@blah.com"
-    -b 1040  (min bits)
-
+ssh-keygen -t ed25519 -C "your.email@blah.com"
+    -b 1040  (min bits, optional)
 
 ADD PUB KEY TO YOUR ONLINE ACCOUNT
 
@@ -25,22 +30,16 @@ Host *
   AddKeysToAgent yes
 
 
-CLEAR CURRENT KEYS
-ssh-add -D
-
-
-LIST CURRENT ADDED
-ssh-add -ld
 
 
 CHECK IF REMOTE CAN CONNECT
-ssh -T bb
-ssh -T gh
-ssh -T username@remote-repo-url
+`ssh -T bb`
+`ssh -T gh`
+`ssh -T username@remote-repo-url`
 
 
 CHANGE HTTPS TO SSH
-git remote set-url origin git@HOST:USERNAME/REPOSITORY.git
+`git remote set-url origin git@HOST:USERNAME/REPOSITORY.git`
 
 
 
