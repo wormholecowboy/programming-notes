@@ -59,25 +59,54 @@ body = 'subject: whatever \n\n   // double new line ends headers
         body starts here. some text'
 conn.quit()
 
+
 # UV
 ```bash
-# 🔧 Install uv
-curl -Ls https://astral.sh/uv/install.sh | sh
 
-# 🛠 Basic Package Management
-# Install a package
-uv pip install <package>
-uv pip install -r requirements.txt
-uv pip uninstall <package>
-uv pip freeze
+# 📦 Package Management
+uv init
+uv init project-name-folder
+uv add openai fastapi
+uv add --dev openai fastapi
+uv add -r requirements.txt
+uv remove openai
+
+# 🚀 Run
+uv run hello.py
+
+# create new venv and install exact deps
+uv sync
+uv sync --no-dev
+
+# install Python version
+uv python install 3.11
+uv python install 3.11 3.12 3.13  # Multiple at once
+# Pin project to specific version
+uv python pin 3.12  # Creates .python-version
+# List available versions on sys
+uv python list
+
+#  Tools
+uv tool install black
+uv run pytest
+uv run black .
+uv run uvicorn app:app
 
 # 🧪 Virtual Environment Management
 # Using the run command creates venv automatically
 # Create a new virtual environment in a directory
 uv venv <dir>
 uv venv --python=python3.11 <dir>
+
 # ✅ NOTE: You do NOT need to activate the venv manually!
 # uv run and uv pip automatically use the .venv
+
+# If you still wanna use pip for some reason
+# Install a package
+uv pip install <package>
+uv pip install -r requirements.txt
+uv pip uninstall <package>
+uv pip freeze
 
 # 🔁 Dependency Syncing
 # Sync the environment to match uv.lock exactly
@@ -85,28 +114,6 @@ uv pip sync
 # Add a new dependency (updates pyproject.toml + uv.lock)
 uv pip add <package>
 uv pip remove <package>
-
-# 🧩 Running Code or Tools
-# Run a Python script inside the managed venv
-uv run python script.py
-
-# Run CLI tools from the virtualenv
-uv run pytest
-uv run black .
-uv run uvicorn app:app
-
-# install Python version
-uv python install 3.11
-
-#  Tools
-uv tool install black
-# add tools globally?
-uv tool update-shell
-
-# 🚀 Project Initialization
-# Initialize a new uv project with pyproject.toml + venv
-uv init
-uv init project-name-folder
 
 # 🧼 Cache and Info
 # Clean the uv package cache
