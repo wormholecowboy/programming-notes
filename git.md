@@ -1,6 +1,8 @@
 
 
 # HANDY 
+see what files were added in a commit
+`git show --name-only <commmitish>`
 remove all files from staging, keep working changes  
 `git reset`  
 keep file but rm from staging  
