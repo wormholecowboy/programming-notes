@@ -52,27 +52,6 @@ echo "whatever" >> file.txt <!-- # will append -->
 
 
 
-# GREP
-grep "string" file.txt
-grep "string \*" file.txt <!-- # use RegEx to search all -->
-grep "string" file.txt file2.txt file3.txt
-grep "string" . // search all files in folder
-grep -rni "string" . // search all files recursively, case insensitive
-grep -v string   # invert selection
-
-
-
-# FINDING
-find <dir> -iname <file> This will be case insensitive
-find . -name "file.txt"
-find . -empty <!-- # find empty files -->
-find . -iname "*usingwildcards*"
--type d searches only dir
--type f searches only files
-find ~ \( -iname '*jpeg' -o -iname '*jpg' \) using the OR flag -o
-
-
-
 # CREATE many files
 touch file-{001..100}.txt
 
@@ -82,55 +61,6 @@ touch file-{001..100}.txt
 for users, add to rc file
 for system-wide, edit /etc/profile
 export PATH="$PATH:/opt/example/bin"
-
-
-
-# SYMLINK
-ln -s ~/PathToLinkTO pathNickname #run this in the dir where you want the symlink
-# remove symlink
-rm symlinkNickname
-# see current symlinks
-find . -type l -ls
-find . -maxdepth 1 -type l -ls # current dir only
-
-
-
-# ZIP
-zip zippedfile.zip thing-to-zip.txt         // can also add files this way
-zip -r archive.zip .  // recurse in cwd
-zip -d archive.zip file-to-delete.txt
-zip -u archive.zip file.txt     // update or add files
--m delete the original files
-
-
-
-# TARBALL 
-# create
-tar -czvf tarballFilename.tar.gz fileORdir
-# see inside tarball
-tar -tzvf file
-# extract
-tar -xzvf file.tar.gz
-
--c : Creates Archive
--x : Extract the archive
--f : creates archive with given filename
--t : displays or lists files in archived file
--u : archives and adds to an existing archive file
-
--v : Displays Verbose Information
--A : Concatenates the archive files
--z : tells tar to use gzip
-    For .tar.xz archives use J instead of z, and for .tar.bz2 use j.
-    -j : use tbzip  *.tar.bz2
-    -J : use for *.tar.xz
--W : Verify a archive file
--r : update or add file or directory in already existed .tar file
--C : change install dir
-
-example
-tar -C /opt -xzf example.tar.gz 
-unzip file.zip -d destination_folder
 
 
 
@@ -192,22 +122,6 @@ ls | xargs -I {} echo "/random/path/{}"  # {} is arbitrary
 cat file | jq '.field.nested_field'
 
 
-# RSYNC
-rsync -aHAX wholedir dest/
-rsync -aHAX contentsOfDir/ dest/
-
--a: archive mode (recursive + preserve permissions, timestamps, symlinks, etc.)
--v: verbose
--h: human-readable file sizes
--z: enable compression during transfer
---include='*.jpg'
---exclude='node_modules/'
-
-# mirror - delete files in dest
-rsync -avh --delete /src/ /dest/
-
-# dry run
-rsync -avh --dry-run /src/ /dst/
 
 
 
