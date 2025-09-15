@@ -16,17 +16,23 @@ ssh-keygen -t ed25519 -C "your.email@blah.com"
 - ADD PUB KEY TO YOUR ONLINE ACCOUNT
 
 
-# CREATE "CONFIG" IN ~/.SSH
-ex.
-#WORK Bitbucket
-    Host bb
-    HostName bitbucket.org
-    User git
-    IdentityFile ~/.ssh/id_rsa_bb
-Note: On Mac OS Sierra onwards you have to add this to the top of the config file OR in each one:
-Host *
-  UseKeychain yes
-  AddKeysToAgent yes
+## CREATE "CONFIG" IN ~/.SSH
+Creates an easy ref  
+
+```
+Host myec2
+    HostName your-instance-public-ip
+    User ec2-user
+    IdentityFile ~/.ssh/your-key.pem
+    ServerAliveInterval 60
+```
+
+Then you can use:  
+```
+ssh myec2
+scp file.txt myec2:/remote/path/
+rsync -avz ./local/ myec2:/remote/
+```
 
 
 ## CHECK IF REMOTE CAN CONNECT
