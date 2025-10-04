@@ -1,7 +1,10 @@
 ## START SSH AGENT
+only needed if you use a passphrase  
+holds private keys passphrase in mem  
+runs natively on macos (launchd)  
 `eval $(ssh-agent)`
 OR
-`eval `ssh-agent -s`
+`eval "ssh-agent -s"`
 
 ## CLEAR CURRENT KEYS
 `ssh-add -D`
@@ -10,10 +13,13 @@ OR
 `ssh-add -ld`
 
 ## GENERATE
-ssh-keygen -t ed25519 -C "your.email@blah.com"
+ssh-keygen -t ed25519 -C "comment"
     -b 1040  (min bits, optional)
-
+- Pick any file name under .ssh/
 - ADD PUB KEY TO YOUR ONLINE ACCOUNT
+
+# ADD KEY TO SSH AGENT'
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 
 
 ## CREATE "CONFIG" IN ~/.SSH
