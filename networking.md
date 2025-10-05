@@ -13,6 +13,8 @@
 
 ### Find Your Device
 - `ifconfig` → Show all interfaces, IPs, and MAC addresses.  
+- `ifconfig | grep ether` → Show only MAC addresses.
+- `ifconfig | grep inet` → Show only IPs.
 - `ipconfig getifaddr [enX]` → Show your IP for a specific interface.  
 
 ### Identify Your Router
