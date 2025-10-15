@@ -103,7 +103,7 @@ defaults write com.apple.screencapture type jpg
 defaults write com.apple.Dock showhidden -bool TRUE && killall Dock
 
 # delay the dock
-defaults write com.apple.dock autohide-delay -float 1; killall Dock
+defaults write com.apple.dock autohide-delay -float .4; killall Dock
 
 
 
