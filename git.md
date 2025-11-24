@@ -1,6 +1,6 @@
 # GIT COMMANDS
 
-# HANDY 
+## HANDY 
 see what files were added in a commit
 `git show --name-only <commmitish>`
 remove all files from staging, keep working changes  
@@ -33,24 +33,24 @@ see only the commit messages for a file
 see parrents  
 ` --parents`  
 
-# GIT SHOW
+## GIT SHOW
 `git show`              # Shows the latest commit (HEAD)
 `git show <commitish>`       # Shows specific commit
 `git show abc123:path/to/file.txt`    # File contents at that commit
 
-# Compare specific commits
+### Compare specific commits
 `git show abc123..def456`    # Changes between two commits
 
-## Format options
+### Format options
 git show --oneline         # Compact view
 git show --no-patch        # Just commit info, no diff
 git show --stat            # Files + status (A/M/D)
 
-# Useful combos
+### Useful combos
 git show HEAD:path/file > old.txt    # Extract old version to a new file
 
 
-# GITHUB CLI  
+## GITHUB CLI  
 `github auth login`  
 
 `gh repo create`  
@@ -64,7 +64,7 @@ git show HEAD:path/file > old.txt    # Extract old version to a new file
 `gh gist view <gist>`  
 
 
-# FUGITIVE  
+## FUGITIVE  
 []c     scroll through commits  
 Gvdiff  see a diff for current file      
 Gvdiff main   see a diff for another branch or commit  
@@ -97,7 +97,7 @@ d2o     select right side solution
 d3o     select left  
 
 
-# WORKTREES  
+## WORKTREES  
 new branch  
 `git worktree add -b <branch name> <path/worktree name> [ref-branch]`  
 
@@ -105,7 +105,7 @@ new branch
 `git worktree remove <path> `  
 
 
-# DIFF   
+## DIFF   
  compare staging and working  
 `git diff`  
 compare staging and last commit  
@@ -138,7 +138,7 @@ config for difftool and mergetool
 	cmd = "nvim -d -c \"wincmd l\" -c \"norm ]c\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
 ```  
 
-# PULL REQUEST PROCESS
+## PULL REQUEST PROCESS
 1. fork on github
 2. clone your fork in CLI
 3. create new branch inside clone “git checkout -b <branchfixname>”
@@ -149,7 +149,7 @@ opt. add the orig repo as a remote so you can stay in sync with and pull from or
 `git remote add upstream <URL>`
 
 
-# MISC
+## MISC
 
 If there are untracked local files you could use `git clean` to remove them.
 - git clean -f to remove untracked files
@@ -172,7 +172,7 @@ good to clear the cache periodically
 `git rm -r -cached . `
 
 
-# REMOTE  
+## REMOTE  
 
 Create local branch from a remote branch  
 `git checkout -t origin/remotebranch`  
@@ -230,7 +230,7 @@ change from https to ssh
 `git remote set-url origin git@HOST:USERNAME/REPOSITORY.git`  
 
 
-### REBASING   
+## REBASING   
 make sure to git add your files after fixing conflict before continuing  
 `git rebase main`  // from feature  
 `git rebase --abort`  // if you fuck something up  
@@ -240,17 +240,16 @@ make sure to git add your files after fixing conflict before continuing
 or   
 `git rebase -r HEAD~n`  if you want to squash down commits in current branch  
 
-#### ALT USING MERGE SQUASH  
+### ALT USING MERGE SQUASH  
 `git merge --squash feature-branch`  from main  
 creates an unstaged change on main  
 `git commit -m "Your single commit message"`  
 
 ### Rebase Conflict  
 Note: When conflict during rebase, theirs and ours will be swapped, b/c rebase switches to the target base branch under the hood.   
-fix conflict  
-  can use these commands instead of editing  
-  `git checkout --ours filename`  // main  
-  `git checkout --theirs filename`  // features  
+fix conflict can use these commands instead of editing  
+`git checkout --ours filename`  // main  
+`git checkout --theirs filename`  // features  
 `git add filename`  
 `git rebase --continue`  
 if you want to ff merge  
@@ -263,7 +262,7 @@ diffs
 `git diff --ours --theirs file.txt`  
 
 
-# CONFIG  
+## CONFIG  
 
 System: all users  
 Global: one user, all repos  
@@ -299,7 +298,7 @@ ALIASES
 `git config --global --unset alias.myalias`  
 
 
-# STASH  
+## STASH  
  quick one-off save  
 `git stash`  
 name your stash to get it later  
@@ -315,7 +314,7 @@ clear it
 `git stash clear`  
 
 
-# TAGS  
+## TAGS
  see all  
 `git tag`  
 `git tag <name>`  
@@ -329,7 +328,7 @@ clear it
 `git push --delete <remote> <tagname>`  
 
 
-# RESTORE   unstage , undo working  
+## RESTORE   unstage , undo working  
 
 Undo working, keep staging  
 `git restore .`  
@@ -343,7 +342,7 @@ Undo working, keep staging
 `git restore --source HEAD~3 file`  
 
 
-# CLEAN  
+## CLEAN  
 `git clean`  
  dry run  
 `git clean -n`  
@@ -355,12 +354,12 @@ Undo working, keep staging
 `git clean -df`  
 
 
-# REVERT   
+## REVERT   
 REVERT creates a new commit that undoes changes from previous(does not modify history)  
 `git revert <commitHash>`  
 
 
-# RESET  
+## RESET  
 Can be used to undo last commit or changes in stage or worktree  
 Destrutive, but can be recovered with reflog  
 --soft is good if you mess up revert, cherry pick, rebase  
@@ -386,7 +385,7 @@ Command	Effect
 `git reset --hard HEAD^`	Moves HEAD back and discards all changes.  
 
 
-# BISECT  
+## BISECT  
 
 `git bisect start`  
 give bisect a range to work in (not including commit uses the current HEAD position)  
@@ -399,17 +398,17 @@ reset state
 
 
 
-# REFLOG  
+## REFLOG  
 tracks everything HEAD does  
 `git reflog`  
 
 
-# RERERE  
+## RERERE  
 remember how conflicts where resolved  
 `git config rerere.enabled true`  
 
 
-# CHERRY-PICK  
+## CHERRY-PICK  
 pull in a commit from another branch w/o everything else  
 `git cherry-pick <commitish>`  
 `git cherry-pick -n <commitish>`  Don't create a new commit  
@@ -417,7 +416,7 @@ pull in a commit from another branch w/o everything else
 `git cherry-pick someBranch`   Grabs the last commit from the tip of someBranch  
 
 
-# TAGS  
+## TAGS (duplicate section)
 immutable pointers to commits  
 
 list tags  
