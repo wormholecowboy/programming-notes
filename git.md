@@ -1,4 +1,4 @@
-
+# GIT COMMANDS
 
 # HANDY 
 see what files were added in a commit
@@ -32,6 +32,23 @@ see only the commit messages for a file
 `git log --stat -- filename`  
 see parrents  
 ` --parents`  
+
+# GIT SHOW
+`git show`              # Shows the latest commit (HEAD)
+`git show <commitish>`       # Shows specific commit
+`git show abc123:path/to/file.txt`    # File contents at that commit
+
+# Compare specific commits
+`git show abc123..def456`    # Changes between two commits
+
+## Format options
+git show --oneline         # Compact view
+git show --no-patch        # Just commit info, no diff
+git show --stat            # Files + status (A/M/D)
+
+# Useful combos
+git show HEAD:path/file > old.txt    # Extract old version to a new file
+
 
 # GITHUB CLI  
 `github auth login`  
@@ -219,20 +236,11 @@ make sure to git add your files after fixing conflict before continuing
 `git rebase --abort`  // if you fuck something up  
 `git rebase --skip`   // to skip the commit  
 `git rebase --continue`  // keep going after fixing conflict, conflicts will stop replaying feature branch on the commit that is problematic.  
-
-Interactive rebase cleans up history  
 `git rebase -i main`  // from feature  
 or   
 `git rebase -r HEAD~n`  if you want to squash down commits in current branch  
 
-`pick <commit>       use this`  
-`fixup <commit>      meld into prev commit and discard message`  
-`squash <commit>     meld into prev commit and keep message`  
-`reword <commit>     use commit but reword message`  
-`drop <commit>       discard commit completely`  
-`edit <commit>       use commit but pause for amending`  
-
-ALT USING MERGE SQUASH  
+#### ALT USING MERGE SQUASH  
 `git merge --squash feature-branch`  from main  
 creates an unstaged change on main  
 `git commit -m "Your single commit message"`  
