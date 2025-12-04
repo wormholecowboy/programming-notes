@@ -1,53 +1,32 @@
 # GIT COMMANDS
 
-## HANDY 
-see what files were added in a commit
-`git show --name-only <commmitish>`
-remove all files from staging, keep working changes  
-`git reset`  
-keep file but rm from staging  
-`git rm --cached file`  
-`git restore --staged <file>`  
-`git reset <file>`  
- remove file from hdd too  
-`git rm -f <file>`  
-unmodify a file  
-`git restore <file>`  
+## LOG & SEARCH
+grep for string that changed in commits
+`git log -S <string>`
+print out objects of a commit, tree, object
+`git cat-file -p <hash>`
 
-Finding Things  
-grep for string that changed in commits  
-`git log -S <string>`  
-print out objects of a commit, tree, object  
-`git cat-file -p <hash>`  
+see commit history for a file
+`git log -- filename`
+see commit changes for a file
+`git log -p -- filename`
+see only the commit messages for a file
+`git log --stat -- filename`
+see parents
+`git log --parents`
 
-amend last commit  
-`git commit --amend`  
-`git commit --amend -m "updated message"`  
-
-see commit history for a file  
-`git log -- filename`  
-see commit changes for a file  
-`git log -p -- filename`  
-see only the commit messages for a file  
-`git log --stat -- filename`  
-see parrents  
-` --parents`  
 
 ## GIT SHOW
 `git show`              # Shows the latest commit (HEAD)
 `git show <commitish>`       # Shows specific commit
 `git show abc123:path/to/file.txt`    # File contents at that commit
 
-### Compare specific commits
+Compare specific commits  
 `git show abc123..def456`    # Changes between two commits
-
-### Format options
-git show --oneline         # Compact view
-git show --no-patch        # Just commit info, no diff
-git show --stat            # Files + status (A/M/D)
-
-### Useful combos
-git show HEAD:path/file > old.txt    # Extract old version to a new file
+Useful combos  
+`git show HEAD:path/file > old.txt`    # Extract old version to a new file
+Files + status (A/M/D)  
+`git show --stat`
 
 
 ## GITHUB CLI  
@@ -62,47 +41,6 @@ git show HEAD:path/file > old.txt    # Extract old version to a new file
 `gh gist list`  
 `gh gist create --public <file.py>`  
 `gh gist view <gist>`  
-
-
-## FUGITIVE  
-[]c     scroll through commits  
-Gvdiff  see a diff for current file      
-Gvdiff main   see a diff for another branch or commit  
-Git blame  
-czz     stash  
-czA     apply top stash  
-cza     apply top stash, preserve index  
-czP     pop  
-dv      vert diff  
-dq      quit the vert diff  
-Shift x to delete a change in unstaged  
-
-Gvdiffsplit        compare working to last commit  
-Gvdiffsplit main   to compare changes to main branch  
-Gvdiffsplit!       keep focus on current window, keeps older version on right  
-G difftool -y      see changes for each file in a tab  
-tabo               get rid of tabs?  
-
-Gedit main:file.js      open a file in certain branch  
-Gread                   same but replaces your current buffer  
-
-G log  
-O   to see changes in tab  
-o   to see changes in split  
-coo checkout that commit  
-
-merge conflicts (Gvdiffsplit!)  
-]c      next hunk  
-d2o     select right side solution  
-d3o     select left  
-
-
-## WORKTREES  
-new branch  
-`git worktree add -b <branch name> <path/worktree name> [ref-branch]`  
-
-`git worktree list`  
-`git worktree remove <path> `  
 
 
 ## DIFF   
@@ -138,38 +76,15 @@ config for difftool and mergetool
 	cmd = "nvim -d -c \"wincmd l\" -c \"norm ]c\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
 ```  
 
-## PULL REQUEST PROCESS
-1. fork on github
-2. clone your fork in CLI
-3. create new branch inside clone “git checkout -b <branchfixname>”
-4. make change and commit
-5. push commit “git push -u origin <branchfixname>”
-6. Click “compare and pull request” green button on github
-opt. add the orig repo as a remote so you can stay in sync with and pull from orig
-`git remote add upstream <URL>`
-
-
-## MISC
-
-If there are untracked local files you could use `git clean` to remove them.
-- git clean -f to remove untracked files
-- df to remove untracked files and directories
-- xdf to remove untracked or ignored files or directories
-
-Override local with the remote
-`git fetch main`
-`git reset --hard origin/main`
-`git clean -df` #removes untracked files that are not necessary
-`git pull`
-
-Override the remote with local
+## SYNC
+force local to match remote
 `git fetch origin`
-`git merge -s ours --no-commit <local-branch>`
-`git push --force origin <remote-branch-name>`
-git push --force-with-lease   only pushes if repo hasn't changed since your last fetch
+`git reset --hard origin/main`
+`git clean -df`
 
-good to clear the cache periodically
-`git rm -r -cached . `
+force remote to match local
+`git push --force origin <branch>`
+`git push --force-with-lease`  safer: only pushes if remote hasn't changed since last fetch
 
 
 ## REMOTE  
@@ -328,21 +243,24 @@ clear it
 `git push --delete <remote> <tagname>`  
 
 
-## RESTORE   unstage , undo working  
+## RESTORE   file-level: unstage, undo working
+for working dir and staging changes only (file-level)
+does NOT modify commit history
+use this for: discarding local edits, unstaging files
 
-Undo working, keep staging  
+Undo working, keep staging; restore to last commit or stage  
 `git restore .`  
- remove from staging  
-`git restore --staged <file>`  
-`git restore -S <file>`  
- WARN discards working dir changes, revert to last commit or stage  
 `git restore <file>`  
-`git checkout -- <file>`  
+ remove from staging  
+`git restore --staged or -S <file>`  
  restore back to a previous commit  
 `git restore --source HEAD~3 file`  
 
 
-## CLEAN  
+## CLEAN
+permanently deletes untracked files from filesystem (not recoverable)
+only affects files not in git index; does NOT touch staged or committed files
+always run `-n` first to preview what will be deleted
 `git clean`  
  dry run  
 `git clean -n`  
@@ -350,18 +268,35 @@ Undo working, keep staging
 `git clean -d`  
  force delete  
 `git clean -f`  
-`git clean -dn`  
-`git clean -df`  
+`git clean -dn`
+`git clean -df`
+
+clear git cache (forces re-evaluation of .gitignore)
+`git rm -r --cached .`
 
 
-## REVERT   
-REVERT creates a new commit that undoes changes from previous(does not modify history)  
+## PRUNE
+remove stale local refs to remote branches that no longer exist
+`git remote prune origin`
+`git fetch --prune`  or `-p`
+set fetch to always prune
+`git config --global fetch.prune true`
+
+
+## REVERT
+safe way to undo commits - creates NEW commit that reverses changes
+preserves history (good for shared branches)
+use this for: undoing commits already pushed to remote
+compare to reset: revert adds history, reset rewrites it
 `git revert <commitHash>`  
 
 
-## RESET  
-Can be used to undo last commit or changes in stage or worktree  
-Destrutive, but can be recovered with reflog  
+## RESET
+moves HEAD pointer - rewrites commit history (commit-level)
+destructive but recoverable via reflog
+use this for: uncommitting local changes, cleaning up before push
+compare to revert: reset rewrites history, revert preserves it
+compare to restore: reset moves HEAD, restore only affects files  
 --soft is good if you mess up revert, cherry pick, rebase  
 --soft puts last commit into staging  
 --reset defaults to --mixed  
@@ -398,9 +333,17 @@ reset state
 
 
 
-## REFLOG  
-tracks everything HEAD does  
-`git reflog`  
+## REFLOG
+tracks everything HEAD does (local only, not pushed)
+your safety net for recovering from mistakes
+entries expire after 90 days by default
+
+`git reflog`
+`git reflog show <branch>`  reflog for specific branch
+recover a lost commit or undo a bad reset
+`git reset --hard HEAD@{2}`  go back 2 moves
+`git checkout HEAD@{n}`  view previous state (detached HEAD)
+`git branch recover-branch HEAD@{n}`  create branch from old state
 
 
 ## RERERE  
@@ -415,13 +358,3 @@ pull in a commit from another branch w/o everything else
 `git cherry-pick -3 <commitish>`  Edit the commit message  
 `git cherry-pick someBranch`   Grabs the last commit from the tip of someBranch  
 
-
-## TAGS (duplicate section)
-immutable pointers to commits  
-
-list tags  
-`git tag`  
-create tag on current commit  
-`git tag tag_name -m "tag message"`  
-
-`git push origin --tags`  
