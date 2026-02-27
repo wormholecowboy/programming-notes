@@ -420,3 +420,48 @@ LINES TERMINATED BY '\n'
 (domain, new_id);
 
 
+-- INFORMATIONAL
+  -- List all tables
+  SHOW TABLES;
+  -- List only views
+  SHOW FULL TABLES WHERE Table_type = 'VIEW';
+  -- List only base tables (no views)
+  SHOW FULL TABLES WHERE Table_type = 'BASE TABLE';
+  -- Describe a table's columns
+  DESCRIBE table_name;
+  -- Show the CREATE statement for a table or view
+  SHOW CREATE TABLE table_name;
+  SHOW CREATE VIEW view_name;
+
+-- Basic execution plan (estimated, doesn't run the query)
+  EXPLAIN SELECT * FROM view_name;
+
+  -- JSON format with more detail (cost estimates, filtered %)
+  EXPLAIN FORMAT=JSON SELECT * FROM view_name;
+
+  -- Tree format (easier to read nested joins)
+  EXPLAIN FORMAT=TREE SELECT * FROM view_name;
+
+  -- Actually runs the query, shows real vs estimated rows
+  EXPLAIN ANALYZE SELECT * FROM view_name;
+
+  -- Works with any query, not just views
+  EXPLAIN ANALYZE SELECT * FROM table_name WHERE column = 'value';
+
+  Key columns in basic EXPLAIN output:
+
+  ┌──────────┬────────────────────────────────────────────────────────────┐
+  │  Column  │                     What it tells you                      │
+  ├──────────┼────────────────────────────────────────────────────────────┤
+  │ type     │ Join type — ALL (full scan, bad), ref/eq_ref (index, good) │
+  ├──────────┼────────────────────────────────────────────────────────────┤
+  │ rows     │ Estimated rows examined                                    │
+  ├──────────┼────────────────────────────────────────────────────────────┤
+  │ filtered │ % of rows that match the WHERE                             │
+  ├──────────┼────────────────────────────────────────────────────────────┤
+  │ key      │ Which index is used (NULL = no index)                      │
+  ├──────────┼────────────────────────────────────────────────────────────┤
+  │ Extra    │ Using temporary, Using filesort = potential bottlenecks    │
+  └──────────┴────────────────────────────────────────────────────────────┘
+
+  Heads up: EXPLAIN ANALYZE actually executes the query, so avoid it on expensive queries in production.
