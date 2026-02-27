@@ -1,7 +1,24 @@
+## ssh-copy-id vs ssh-add (what's the difference?)
+**ssh-copy-id** → Tells the *remote server* to trust your key
+- Copies public key to remote's ~/.ssh/authorized_keys
+- One-time setup per server
+
+**ssh-add** → Unlocks your key *locally* so you don't retype the passphrase
+- Only needed if your private key has a passphrase
+- Loads decrypted key into SSH agent (in memory)
+- Lasts until logout/reboot
+
+If your key has no passphrase, you don't need ssh-add at all.
+
+Check if your key has a passphrase:
+`ssh-keygen -y -f ~/.ssh/id_ed25519`
+Prompts for passphrase = has one. Prints public key = doesn't.
+
+
 ## START SSH AGENT
-only needed if you use a passphrase  
-holds private keys passphrase in mem  
-runs natively on macos (launchd)  
+only needed if you use a passphrase
+holds private keys passphrase in mem
+runs natively on macos (launchd)
 `eval $(ssh-agent)`
 OR
 `eval "ssh-agent -s"`
@@ -33,12 +50,20 @@ Host myec2
     ServerAliveInterval 60
 ```
 
-Then you can use:  
+Then you can use:
 ```
 ssh myec2
 scp file.txt myec2:/remote/path/
 rsync -avz ./local/ myec2:/remote/
 ```
+
+
+## PASSWORDLESS SSH (copy key to remote)
+`ssh-copy-id hostname`
+
+Copies your public key (~/.ssh/id_ed25519.pub) to the remote's ~/.ssh/authorized_keys.
+Asks for password once, then future connections use key auth instead.
+The hostname can be an alias from your config (e.g., `ssh-copy-id mm`).
 
 
 ## CHECK IF REMOTE CAN CONNECT
