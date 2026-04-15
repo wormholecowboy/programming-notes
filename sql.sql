@@ -372,17 +372,15 @@ select average_salary(1);
 
 
 -- INDEX
-Best to use on columns which you filter
--- B-Tree
-For high-cardinality columns (primary key, names) 
--- Bitmap
-For low-cardinality, slow to update, fast to read. storage efficient. for data warehouses. 
+-- Best to use on columns which you filter
+-- B-Tree: For high-cardinality columns (primary key, names) 
+-- Bitmap: For low-cardinality, slow to update, fast to read. storage efficient. for data warehouses. 
 
-CREATE INDEX index_name
-ON table_name
-    (
-    column_name
-    );
+CREATE INDEX idx_lastname ON people_table(LastName);
+
+-- Composite
+-- Speeds up: SELECT * FROM orders WHERE customer_id = 5 AND order_date = '2023-01-01';
+CREATE INDEX idx_cust_date ON orders(customer_id, order_date);
 
 
 -- VIEWS
@@ -427,11 +425,19 @@ LINES TERMINATED BY '\n'
   SHOW FULL TABLES WHERE Table_type = 'VIEW';
   -- List only base tables (no views)
   SHOW FULL TABLES WHERE Table_type = 'BASE TABLE';
+
   -- Describe a table's columns
   DESCRIBE table_name;
+  DESC table_name;
+  \d table_name; -- Postgres
+  SHOW COLUMNS FROM table_name
+
   -- Show the CREATE statement for a table or view
   SHOW CREATE TABLE table_name;
   SHOW CREATE VIEW view_name;
+
+  -- See active connections and queries
+  SHOW PROCESSLIST;
 
 -- Basic execution plan (estimated, doesn't run the query)
   EXPLAIN SELECT * FROM view_name;
