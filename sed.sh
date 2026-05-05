@@ -2,20 +2,18 @@
 sed 's/searchText/replaceText/flags' file.txt
 
 ## flags
-i   case insensitive
-g   all line occurences
-1-9 pick the exact occurence
-w   creates a file of only changed items
-e   use multiple commands
-f   use a script file for sed commands
-d   delete
+## i   case insensitive
+## g   all line occurences
+## 1-9 pick the exact occurence
+## w   creates a file of only changed items
+## e   use multiple commands
+## f   use a script file for sed commands
+## d   delete
 
 ## edit in place and create backup (insensitive)
 sed -i.bak 'patterns' file.txt
-
 ## can use any delimiter
 sed 's#serach#replace#gi' file.txt
-
 ## delete a specific line
 sed '/searchPatter/d' file.txt
 ## delete blank lines

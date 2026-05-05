@@ -282,9 +282,19 @@ LAG(return_value [,offset[, default_value ]]) OVER (
 
 -- JOINS
 -- cross join
--- adds all rows together from both tables, no keys required
+-- adds all rows together from both tables, no keys required (cartesian product)
 SELECT * FROM table
 CROSS JOIN another_table
+
+-- replace platform values
+-- VALUES is a 2-row, 1-column table
+  SELECT
+    w.id,
+    w.url,
+    p.platform
+  FROM
+    some_sites w
+    CROSS JOIN (VALUES ('plat1'), ('plat2')) AS p(platform)
 
 LEFT JOIN
 RIGHT JOIN
