@@ -449,6 +449,13 @@ LINES TERMINATED BY '\n'
   -- See active connections and queries
   SHOW PROCESSLIST;
 
+  -- See variables
+  SHOW VARIABLES LIKE "max_connections";
+
+  -- see users connected
+  SELECT user, host, COUNT(*) AS conns
+  FROM information_schema.processlist
+
 -- Basic execution plan (estimated, doesn't run the query)
   EXPLAIN SELECT * FROM view_name;
 
