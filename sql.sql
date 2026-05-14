@@ -435,7 +435,6 @@ LINES TERMINATED BY '\n'
   SHOW FULL TABLES WHERE Table_type = 'VIEW';
   -- List only base tables (no views)
   SHOW FULL TABLES WHERE Table_type = 'BASE TABLE';
-
   -- Describe a table's columns
   DESCRIBE table_name;
   DESC table_name;
@@ -445,12 +444,12 @@ LINES TERMINATED BY '\n'
   -- Show the CREATE statement for a table or view
   SHOW CREATE TABLE table_name;
   SHOW CREATE VIEW view_name;
-
   -- See active connections and queries
   SHOW PROCESSLIST;
-
   -- See variables
   SHOW VARIABLES LIKE "max_connections";
+  SHOW STATUS LIKE "max_used_connections"; -- max used since boot
+  SHOW STATUS LIKE 'Threads_connected';
 
   -- see users connected
   SELECT user, host, COUNT(*) AS conns
@@ -458,16 +457,12 @@ LINES TERMINATED BY '\n'
 
 -- Basic execution plan (estimated, doesn't run the query)
   EXPLAIN SELECT * FROM view_name;
-
   -- JSON format with more detail (cost estimates, filtered %)
   EXPLAIN FORMAT=JSON SELECT * FROM view_name;
-
   -- Tree format (easier to read nested joins)
   EXPLAIN FORMAT=TREE SELECT * FROM view_name;
-
   -- Actually runs the query, shows real vs estimated rows
   EXPLAIN ANALYZE SELECT * FROM view_name;
-
   -- Works with any query, not just views
   EXPLAIN ANALYZE SELECT * FROM table_name WHERE column = 'value';
 
