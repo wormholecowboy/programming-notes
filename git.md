@@ -76,17 +76,6 @@ config for difftool and mergetool
 	cmd = "nvim -d -c \"wincmd l\" -c \"norm ]c\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
 ```  
 
-## SYNC
-force local to match remote
-`git fetch origin`
-`git reset --hard origin/main`
-`git clean -df`
-
-force remote to match local
-`git push --force origin <branch>`
-`git push --force-with-lease`  safer: only pushes if remote hasn't changed since last fetch
-
-
 ## REMOTE  
 
 Create local branch from a remote branch  
@@ -214,12 +203,6 @@ ALIASES
 
 
 ## STASH  
- quick one-off save  
-`git stash`  
-name your stash to get it later  
-`git stash save <name> `  
- see what's in your stash, get index  
-`git stash list`  
 `git stash list -p`  show changes  
  applies your stash, leave stash mem alone  
 `git stash apply <indexNumber>`  
@@ -264,7 +247,7 @@ always run `-n` first to preview what will be deleted
 `git clean`  
  dry run  
 `git clean -n`  
- also delete untracked directores, sub folders  
+ also delete untracked directores, sub folders, recursive
 `git clean -d`  
  force delete  
 `git clean -f`  
@@ -301,7 +284,7 @@ compare to restore: reset moves HEAD, restore only affects files
 --soft puts last commit into staging  
 --reset defaults to --mixed  
 
-removes from staging and preserves working changes  
+removes from staging and preserves working changes. unstage.  
 `git reset <fileName>`  
  resets staging to match most recent commit (working dir unaffected)  
 `git reset`  
@@ -355,6 +338,6 @@ remember how conflicts where resolved
 pull in a commit from another branch w/o everything else  
 `git cherry-pick <commitish>`  
 `git cherry-pick -n <commitish>`  Don't create a new commit  
-`git cherry-pick -3 <commitish>`  Edit the commit message  
+`git cherry-pick -e <commitish>`  Edit the commit message  
 `git cherry-pick someBranch`   Grabs the last commit from the tip of someBranch  
 
