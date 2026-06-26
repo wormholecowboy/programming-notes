@@ -204,12 +204,13 @@ ALIASES
 
 ## STASH  
 `git stash list -p`  show changes  
- applies your stash, leave stash mem alone  
-`git stash apply <indexNumber>`  
- applies your stash, deletes that stash from mem  
-`git stash pop <indexNumber>`  
-clear it  
+`git stash apply <indexNumber>`  apply stash, mem remains  
+`git stash pop <indexNumber>`  apply stash, delete from stash mem  
 `git stash clear`  
+`git stash push -S`  stash only staging, leave working  
+`git stash push -k`  stash everything, but leave staging  
+`git stash push -u`  include untracked  
+`git stash pop --index`  return prev staged files to staging on pop  
 
 
 ## TAGS
