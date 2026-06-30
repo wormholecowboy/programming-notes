@@ -14,6 +14,8 @@ dp      // apply changes to other file
 apply macro over range  
 `:norm @w`  
 edit text like normal mode, use <C-f>  
+select over range and use like a macro; Ex: :1,7norm 0AthingsToInsert
+Control+v, Escape: to insert escape back to norm mode
 
 # GLOBAL COMMAND
 `g/pattern`           // print all lines containing pattern  
@@ -36,23 +38,22 @@ edit text like normal mode, use <C-f>
 $ means the last line in the file. 3,$ range means between line 3 and the last line.  
 +n means n lines after the current line. You can use it with . or without. 3,+1 or 3,.+1 means between line 3 and the line after the current line.  
 
-`g/pat/Normal` A  // exectute A from normal mode  
-`g/const/normal` @a  // execute macro  
+`g/pat/norm` A  // exectute A from normal mode  
+`g/pat/norm` @a  // execute macro  
 
 `g/pat1/g/pat2/d`  // delete recursively  
 
 `g/pattern/t` $   // copy all to end of file  
 `g/pattern/m` $   // move  
 
+`v/pattern/<cmd>` // find inverse of pattern
 
--FIND & REPLACE  
+# FIND & REPLACE  
 :%s every line  
 :s current line  
 /g every instance on line  
 
-# is an alternate delimiter
-
-:%s/findWord/replaceWord/g (remove % for single line)  
+`#` is an alternate delimiter
 
 # LAZY NVIM
 `Lazy sync` // install, clean, update  
@@ -89,13 +90,13 @@ Close all but current: Ctrl w o
 Open new split: w v, w s
 Equal splits: ctrl w =
 
--REGISTERS
+# REGISTERS
 
 yanks stay in memory, most recent from 0-9
 recall - “0p
 last inserted text - “.
 
--INSERT MODE
+# INSERT MODE
 
 Ctrl-o       execute normal mode command
 
